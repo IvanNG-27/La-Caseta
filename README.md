@@ -1,4 +1,4 @@
-# [Nombre app] — juegos de fiesta (estilo Manga)
+# La Caseta Game — juegos de fiesta (estilo Manga)
 
 Impostor, Verdad o reto y Yo nunca, pasando un único móvil. Implementa la *Especificación de diseño · Estilo Manga v1.0*.
 
@@ -37,7 +37,6 @@ src/
 
 ## Pendiente de decidir (sección 10)
 
-- Nombre de la app (se muestra `[Nombre app]`; `appId`/`appName` de `capacitor.config.ts` son provisionales).
 - Pantalla de votación (ahora un botón temporal pasa a Resultados sin votos).
 - Pantalla de ajustes, sonido y vibración.
 - Nativo: ocultar contenido en multitarea y mantener la pantalla encendida (plugins de Capacitor).

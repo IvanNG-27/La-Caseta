@@ -10,9 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon-64.png', 'apple-touch-icon.png'],
       manifest: {
-        // PENDIENTE: nombre definitivo de la app (sección 10).
-        name: 'La Caseta',
-        short_name: 'La Caseta',
+        name: 'La Caseta Game',
+        short_name: 'La Caseta Game',
         description: 'Juegos de fiesta para jugar pasando un solo móvil: Impostor, Verdad o reto y Yo nunca.',
         lang: 'es-ES',
         start_url: './',
