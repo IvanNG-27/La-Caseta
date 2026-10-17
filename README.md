@@ -2,7 +2,11 @@
 
 Impostor, Verdad o reto y Yo nunca, pasando un único móvil. Implementa la *Especificación de diseño · Estilo Manga v1.0*.
 
-**Tecnología:** React 19 + TypeScript + Vite, empaquetado como app nativa con Capacitor.
+**App web:** https://ivanng-27.github.io/La-Caseta/ — se puede instalar en el móvil ("Añadir a pantalla de inicio") y funciona sin conexión.
+
+**Tecnología:** React 19 + TypeScript + Vite (PWA), empaquetable como app nativa con Capacitor.
+
+**Publicación:** cada push a `main` pasa los tests y publica la web en GitHub Pages (`.github/workflows/deploy.yml`).
 
 ## Comandos
 
