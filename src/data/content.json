@@ -4,7 +4,19 @@
     "Lugares": ["Playa", "Hospital", "Aeropuerto", "Biblioteca", "Gimnasio"],
     "Animales": ["Pulpo", "Jirafa", "Pingüino", "Camello", "Murciélago"],
     "Objetos": ["Paraguas", "Tostadora", "Tijeras", "Linterna", "Espejo"],
-    "Profesiones": ["Bombero", "Dentista", "Cocinero", "Piloto", "Fontanero"]
+    "Profesiones": ["Bombero", "Dentista", "Cocinero", "Piloto", "Fontanero"],
+    "Anime": [
+      "Eren", "Mikasa", "Armin", "Levi", "Erwin", "Hange", "Reiner", "Zeke",
+      "Tanjiro", "Nezuko", "Zenitsu", "Inosuke", "Rengoku", "Giyu", "Shinobu", "Muzan",
+      "Jotaro", "Dio", "Joseph", "Josuke", "Giorno", "Jolyne", "Kira", "Polnareff",
+      "Naruto", "Sasuke", "Sakura", "Kakashi", "Itachi", "Gaara", "Jiraiya", "Madara",
+      "Thorfinn", "Askeladd", "Thorkell", "Canute", "Thors", "Einar", "Leif", "Bjorn"
+    ],
+    "Juegos": [
+      "Minecraft", "Fortnite", "Tetris", "Pokémon", "Mario Kart", "Among Us", "Zelda", "GTA",
+      "FIFA", "Sonic", "Pac-Man", "Roblox", "Valorant", "Los Sims", "Halo", "Overwatch",
+      "Fall Guys", "Kirby", "Crash", "Doom"
+    ]
   },
   "verdadReto": {
     "suave": {

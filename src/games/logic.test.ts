@@ -4,8 +4,18 @@ import { createDeck, drawCard } from './shared/random';
 import { validateNewPlayer, type Player } from './shared/players';
 import { draw, initTruthOrDare, nextTurn } from './verdadReto/logic';
 import { initNeverHaveI, nextPhrase, toggleSelected } from './yoNunca/logic';
+import { CATEGORIES, impostorWords } from '../data';
 
 const players: Player[] = ['Lucía', 'Marcos', 'Ana', 'Dani'].map((name, i) => ({ id: `p${i}`, name }));
+
+describe('contenido', () => {
+  it('ninguna categoría de Impostor repite palabras', () => {
+    for (const category of CATEGORIES) {
+      const words = impostorWords(category);
+      expect(new Set(words.map((w) => w.toLocaleLowerCase('es-ES'))).size, category).toBe(words.length);
+    }
+  });
+});
 
 describe('jugadores', () => {
   it('rechaza nombres vacíos y repetidos', () => {
