@@ -8,6 +8,7 @@ import { Bubble, Burst, Caption, Sfx, Stamp } from '../components/fx';
 import { Button } from '../components/Buttons';
 import { ProgressSegments } from '../components/GameItems';
 import { FitText } from '../components/FitText';
+import { WordBubble } from '../components/WordBubble';
 import { useImpostor } from '../store/impostor';
 import { useSettings } from '../store/settings';
 import { useT } from '../i18n';
@@ -120,11 +121,7 @@ function Word({ word, category }: { word: string; category: string }) {
   return (
     <Panel grow className="impostor__main impostor__word">
       <Caption>{t.impostor.yourWord}</Caption>
-      <Bubble ellipse tail="down" tailX="35%" className="impostor__word-bubble">
-        <FitText max={46} min={28}>
-          {word}
-        </FitText>
-      </Bubble>
+      <WordBubble word={word} />
       <span className="plate--ink impostor__category">{t.impostor.categoryLine(category)}</span>
       <p className="impostor__word-note">{t.impostor.wordNote}</p>
       <Sfx text="ニヤッ" size={20} tone="ink" rotate={-8} style={{ bottom: 12, right: 12 }} />

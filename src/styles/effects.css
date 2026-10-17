@@ -113,7 +113,8 @@
 }
 /* La cola sobresale ~12–13 px y su mitad interior tapa el borde del bocadillo */
 .bubble--tail-down::after {
-  bottom: -11px;
+  /* --tail-lift sube la cola hasta la curva cuando el bocadillo es una elipse */
+  bottom: calc(-11px + var(--tail-lift, 0px));
   border-right-width: var(--border-panel);
   border-bottom-width: var(--border-panel);
 }

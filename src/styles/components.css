@@ -416,6 +416,25 @@
   border-radius: 50%;
 }
 
+/* Bocadillo de la palabra secreta: medidas calculadas en WordBubble.tsx */
+.word-bubble {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.word-bubble__shape {
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.word-bubble__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
 /* Textos ajustables (8.4) */
 .fit-text {
   display: block;
