@@ -9,22 +9,17 @@ import { Chip, ChipGroup, Stepper, TextField } from '../components/Form';
 import { PlayerRow } from '../components/PlayerItems';
 import { usePlayers } from '../store/players';
 import { useImpostor } from '../store/impostor';
+import { useT } from '../i18n';
 import { CATEGORIES } from '../data';
 import { maxImpostors } from '../games/impostor/logic';
-import {
-  ADD_PLAYER_ERROR_TEXT,
-  GAME_LABEL,
-  GAME_PATH,
-  MAX_NAME_LENGTH,
-  MIN_PLAYERS,
-  type GameId,
-} from '../games/shared/players';
+import { GAME_PATH, MAX_NAME_LENGTH, MIN_PLAYERS, type GameId } from '../games/shared/players';
 import './Players.css';
 
 const isGameId = (v: string | null): v is GameId => v === 'impostor' || v === 'verdad-o-reto' || v === 'yo-nunca';
 
 export function Players() {
   const navigate = useNavigate();
+  const t = useT();
   const [params] = useSearchParams();
   const juego = params.get('juego');
   // Desde el chip "Editar" no hay juego elegido: se configura Impostor, como en el diseño.
@@ -45,35 +40,35 @@ export function Players() {
         height={60}
         titleSize={20}
         titleAs="h1"
-        title="Jugadores"
-        action={{ icon: ChevronLeft, label: 'Volver', onClick: () => navigate('/') }}
+        title={t.players.title}
+        action={{ icon: ChevronLeft, label: t.common.back, onClick: () => navigate('/') }}
         right={
           <Stamp rotate={-5} size={12} style={{ marginRight: 4 }}>
-            {GAME_LABEL[game]}
+            {t.games[game]}
           </Stamp>
         }
       />
 
       <Panel className="players__add">
         <TextField
-          label="Añadir jugador"
-          placeholder="Escribe un nombre"
-          addLabel="Añadir jugador"
+          label={t.players.addLabel}
+          placeholder={t.players.placeholder}
+          addLabel={t.players.addLabel}
           maxLength={MAX_NAME_LENGTH}
           onSubmit={(name) => {
             const error = addPlayer(name);
-            return error ? ADD_PLAYER_ERROR_TEXT[error] : null;
+            return error ? t.players.errors[error] : null;
           }}
         />
       </Panel>
 
       <Panel grow className="players__cast">
         <div className="players__band tone">
-          <span className="players__band-box display">Reparto</span>
+          <span className="players__band-box display">{t.players.cast}</span>
           <span className="players__band-box display" aria-hidden>
             登場人物
           </span>
-          <span className="players__min">Mínimo {min}</span>
+          <span className="players__min">{t.players.minimum(min)}</span>
         </div>
         <ul className="players__list">
           {players.map((p) => (
@@ -85,23 +80,21 @@ export function Players() {
       {game === 'impostor' && (
         <Panel className="players__settings">
           <div className="players__setting-row">
-            <span className="display players__label" id="impostores-label">
-              Impostores
-            </span>
+            <span className="display players__label">{t.players.impostors}</span>
             <Stepper
               value={impostorCount}
               min={1}
               max={maxImpostors(players.length)}
               onChange={setImpostorCount}
-              decreaseLabel="Menos impostores"
-              increaseLabel="Más impostores"
+              decreaseLabel={t.players.fewerImpostors}
+              increaseLabel={t.players.moreImpostors}
             />
           </div>
-          <span className="display players__label">Categoría</span>
-          <ChipGroup label="Categoría">
+          <span className="display players__label">{t.players.category}</span>
+          <ChipGroup label={t.players.category}>
             {CATEGORIES.map((c) => (
               <Chip key={c} selected={c === category} onSelect={() => setCategory(c)}>
-                {c}
+                {t.categories[c] ?? c}
               </Chip>
             ))}
           </ChipGroup>
@@ -110,10 +103,10 @@ export function Players() {
 
       {players.length >= min ? (
         <Button arrow onClick={start}>
-          ¡Empezar partida!
+          {t.players.start}
         </Button>
       ) : (
-        <DisabledButton>Añade al menos {min} jugadores</DisabledButton>
+        <DisabledButton>{t.players.needMore(min)}</DisabledButton>
       )}
     </main>
   );

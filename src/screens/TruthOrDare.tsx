@@ -8,12 +8,14 @@ import { Bubble, Caption, Sfx, Stamp } from '../components/fx';
 import { Button } from '../components/Buttons';
 import { FitText } from '../components/FitText';
 import { usePlayers } from '../store/players';
+import { useT } from '../i18n';
 import { useExitConfirm } from '../hooks/useExitConfirm';
 import { MIN_PLAYERS } from '../games/shared/players';
 import { draw, initTruthOrDare, nextTurn } from '../games/verdadReto/logic';
 import './TruthOrDare.css';
 
 export function TruthOrDare() {
+  const t = useT();
   const players = usePlayers((s) => s.players);
   const [state, setState] = useState(() => initTruthOrDare('suave'));
   const { requestExit, dialog } = useExitConfirm();
@@ -26,17 +28,17 @@ export function TruthOrDare() {
   return (
     <main className="screen tod">
       <Header
-        title="Verdad o reto"
-        action={{ icon: X, label: 'Salir de la partida', onClick: requestExit }}
+        title={t.tod.title}
+        action={{ icon: X, label: t.common.exitGame, onClick: requestExit }}
         right={
           <Stamp variant="outline" rotate={-5} size={12} style={{ marginRight: 4 }}>
-            {state.level}
+            {t.tod.levels[state.level] ?? state.level}
           </Stamp>
         }
       />
 
       <Panel height={120} focusLines className="tod__turn">
-        <Caption>Turno de…</Caption>
+        <Caption>{t.tod.turnOf}</Caption>
         <FitText as="h1" max={46} className="plate tod__name">
           {player.name}
         </FitText>
@@ -52,8 +54,8 @@ export function TruthOrDare() {
             onClick={() => setState((s) => draw(s, 'verdad'))}
           >
             <span className="tod__choice-box">
-              <span className="display tod__choice-title">Verdad</span>
-              <span className="tod__choice-sub">Responde con total sinceridad</span>
+              <span className="display tod__choice-title">{t.tod.truth}</span>
+              <span className="tod__choice-sub">{t.tod.truthSub}</span>
             </span>
             <Sfx text="ドキッ" size={26} vertical style={{ top: 10, right: 10 }} />
           </Panel>
@@ -66,8 +68,8 @@ export function TruthOrDare() {
             onClick={() => setState((s) => draw(s, 'reto'))}
           >
             <span className="tod__choice-box tod__choice-box--ink">
-              <span className="display tod__choice-title">Reto</span>
-              <span className="tod__choice-sub">Haz lo que diga la carta</span>
+              <span className="display tod__choice-title">{t.tod.dare}</span>
+              <span className="tod__choice-sub">{t.tod.dareSub}</span>
             </span>
             <Sfx text="バッ" size={26} tone="red-on-ink" vertical style={{ top: 10, left: 10 }} />
           </Panel>
@@ -75,9 +77,9 @@ export function TruthOrDare() {
       ) : (
         <>
           <Panel grow background="tone" className="tod__card">
-            <span className={`display tod__type tod__type--${card.type}`}>{card.type}</span>
+            <span className={`display tod__type tod__type--${card.type}`}>{card.type === 'verdad' ? t.tod.truth : t.tod.dare}</span>
             <span className="tod__count">
-              Carta {card.position}/{card.total}
+              {t.tod.card(card.position, card.total)}
             </span>
             <Bubble tail="up" tailX="50px" className="tod__bubble">
               <p className="tod__prompt">{card.text}</p>
@@ -85,10 +87,10 @@ export function TruthOrDare() {
           </Panel>
           <div className="row">
             <Button variant="secondary" iconStart={RotateCcw} flex={1} onClick={() => setState((s) => draw(s, card.type))}>
-              Otra carta
+              {t.tod.another}
             </Button>
             <Button arrow flex={1} onClick={() => setState((s) => nextTurn(s, players.length))}>
-              ¡Hecho!
+              {t.tod.done}
             </Button>
           </div>
         </>

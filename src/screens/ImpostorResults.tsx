@@ -8,10 +8,12 @@ import { Button } from '../components/Buttons';
 import { ScoreCell, VoteBar } from '../components/GameItems';
 import { FitText } from '../components/FitText';
 import { useImpostor } from '../store/impostor';
+import { useT } from '../i18n';
 import './ImpostorResults.css';
 
 export function ImpostorResults() {
   const navigate = useNavigate();
+  const t = useT();
   const game = useImpostor();
 
   if (!game.active || !game.result) return <Navigate to="/" replace />;
@@ -36,19 +38,19 @@ export function ImpostorResults() {
   return (
     <main className="screen screen--scroll results">
       <Header
-        title="Resultados"
+        title={t.results.title}
         titleAs="h1"
         titleSize={20}
-        action={{ icon: X, label: 'Volver al inicio', onClick: home }}
-        right={<HeaderIndicator>Ronda {game.round}</HeaderIndicator>}
+        action={{ icon: X, label: t.common.backHome, onClick: home }}
+        right={<HeaderIndicator>{t.results.round(game.round)}</HeaderIndicator>}
       />
 
       <Panel height={240} background="ink" focusLines className="results__reveal">
-        <Caption>El impostor era…</Caption>
+        <Caption>{t.results.impostorWas}</Caption>
         <div className="results__name-wrap">
           {/* PROPUESTA: texto neutro, la app no conoce el género del jugador */}
           <Stamp onInk border={3} rotate={-8} size={16} className="results__verdict">
-            {result.caught ? '¡Te pillamos!' : '¡Se ha librado!'}
+            {result.caught ? t.results.caught : t.results.escaped}
           </Stamp>
           <FitText as="p" max={84} className="plate--ink results__name">
             {impostorNames}
@@ -56,26 +58,26 @@ export function ImpostorResults() {
         </div>
         <Sfx text="バーン" size={30} vertical style={{ top: 10, right: 10 }} />
         <p className="results__footer">
-          {impostorVotes} de {players.length} votos · La palabra era «{game.word}»
+          {t.results.footer(impostorVotes, players.length, game.word)}
         </p>
       </Panel>
 
       <Panel className="results__votes">
-        <h2 className="display results__votes-title">Votos</h2>
+        <h2 className="display results__votes-title">{t.results.votes}</h2>
         <ul className="vote-list">
-          {result.tally.map((t) => (
+          {result.tally.map((row) => (
             <VoteBar
-              key={t.playerId}
-              name={byId.get(t.playerId)?.name ?? ''}
-              votes={t.votes}
+              key={row.playerId}
+              name={byId.get(row.playerId)?.name ?? ''}
+              votes={row.votes}
               total={players.length}
-              top={t.playerId === topId}
+              top={row.playerId === topId}
             />
           ))}
         </ul>
       </Panel>
 
-      <ul className="score-grid" aria-label="Marcador">
+      <ul className="score-grid" aria-label={t.results.scoreboard}>
         {ranking.map((p) => (
           <ScoreCell key={p.id} name={p.name} roundPoints={result.points[p.id] ?? 0} total={scores[p.id] ?? 0} />
         ))}
@@ -83,10 +85,10 @@ export function ImpostorResults() {
 
       <div className="row results__actions">
         <Button variant="secondary" flex={1} onClick={home}>
-          Inicio
+          {t.results.home}
         </Button>
         <Button arrow flex={2} onClick={again}>
-          Otra ronda
+          {t.results.again}
         </Button>
       </div>
     </main>

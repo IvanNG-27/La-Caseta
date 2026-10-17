@@ -1,4 +1,5 @@
 // 6.1 Inicio
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router';
 import { EyeOff, Hand, MessageCircleQuestion, Settings2, Users } from 'lucide-react';
 import { APP_NAME } from '../config';
@@ -8,11 +9,22 @@ import { GameCard, IconCircle } from '../components/GameItems';
 import { IconButton } from '../components/Buttons';
 import { Icon } from '../components/Icon';
 import { usePlayers } from '../store/players';
+import { useT } from '../i18n';
 import { GAME_PATH, MIN_PLAYERS, type GameId } from '../games/shared/players';
 import './Home.css';
 
+/** Una línea por elemento, separadas con <br /> (títulos en dos líneas del diseño). */
+const lines = (parts: string[]) =>
+  parts.map((part, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br />}
+      {part}
+    </Fragment>
+  ));
+
 export function Home() {
   const navigate = useNavigate();
+  const t = useT();
   const count = usePlayers((s) => s.players.length);
 
   // PROPUESTA: si no hay jugadores suficientes, las tarjetas llevan primero a Añadir jugadores.
@@ -28,27 +40,23 @@ export function Home() {
         <span aria-hidden className="display home__chapter">
           第1話
         </span>
-        <IconButton variant="header" icon={Settings2} label="Ajustes" onClick={() => navigate('/ajustes')} />
+        <IconButton variant="header" icon={Settings2} label={t.common.settings} onClick={() => navigate('/ajustes')} />
       </header>
 
       <Panel height={230} focusLines className="home__cover">
         <Burst width={310} height={150}>
-          <h1 className="display home__title">
-            ¿A qué
-            <br />
-            jugamos?
-          </h1>
+          <h1 className="display home__title">{lines(t.home.title)}</h1>
         </Burst>
         <Sfx text="ドン!" size={34} rotate={12} style={{ top: 8, right: 10 }} />
         <button type="button" className="home__players-link pressable" onClick={() => navigate('/jugadores')}>
           <Icon icon={Users} size={18} />
           {count > 0 ? (
             <>
-              <span>{count === 1 ? '1 jugador' : `${count} jugadores`}</span>
-              <span className="home__edit">Editar</span>
+              <span>{t.home.players(count)}</span>
+              <span className="home__edit">{t.home.edit}</span>
             </>
           ) : (
-            <span>Añadir jugadores</span>
+            <span>{t.home.addPlayers}</span>
           )}
         </button>
       </Panel>
@@ -57,10 +65,10 @@ export function Home() {
         skew
         layout="row"
         className="home__impostor"
-        tag="Juego 1 · 3–12 jugadores"
-        title="Impostor"
+        tag={t.home.impostorTag}
+        title={lines(t.home.impostorTitle)}
         titleSize={30}
-        description="Todos saben la palabra menos uno. Descubrid quién miente."
+        description={t.home.impostorDesc}
         onClick={() => navigate('/jugadores?juego=impostor')}
         illustration={
           <span className="home__art tone">
@@ -75,15 +83,10 @@ export function Home() {
       <div className="home__pair grow">
         <GameCard
           layout="column"
-          tag="Juego 2 · 2+"
-          title={
-            <>
-              Verdad
-              <br />o reto
-            </>
-          }
+          tag={t.home.todTag}
+          title={lines(t.home.todTitle)}
           titleSize={22}
-          description="Confiesa una verdad o cumple un reto. Sin escaqueos."
+          description={t.home.todDesc}
           onClick={() => openGame('verdad-o-reto')}
           illustration={
             <span className="home__art tone">
@@ -96,16 +99,10 @@ export function Home() {
         />
         <GameCard
           layout="column"
-          tag="Juego 3 · 3+"
-          title={
-            <>
-              Yo
-              <br />
-              nunca
-            </>
-          }
+          tag={t.home.neverTag}
+          title={lines(t.home.neverTitle)}
           titleSize={22}
-          description="Lee la frase. Quien lo haya hecho, suma un punto."
+          description={t.home.neverDesc}
           onClick={() => openGame('yo-nunca')}
           illustration={
             <span className="home__art speed-lines">

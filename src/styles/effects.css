@@ -175,7 +175,7 @@
 }
 .stamp--red {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--on-accent);
   border: var(--stamp-border, 2px) solid var(--stamp-border-color, var(--ink));
 }
 .stamp--outline {

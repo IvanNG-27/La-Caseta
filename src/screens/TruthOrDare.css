@@ -71,6 +71,7 @@
 }
 .tod__type--reto {
   background: var(--accent);
+  color: var(--on-accent);
 }
 .tod__count {
   position: absolute;

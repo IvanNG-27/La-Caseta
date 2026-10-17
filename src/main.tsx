@@ -14,6 +14,15 @@ import './styles/effects.css';
 import './styles/components.css';
 
 import { App } from './App';
+import { applyLanguage, applyTheme, useSettings } from './store/settings';
+
+// Tema e idioma guardados: se aplican antes de pintar para que no parpadee, y después en cada cambio.
+const applySettings = ({ theme, language }: ReturnType<typeof useSettings.getState>) => {
+  applyTheme(theme);
+  applyLanguage(language);
+};
+applySettings(useSettings.getState());
+useSettings.subscribe(applySettings);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Avatar } from './PlayerItems';
 import { Icon } from './Icon';
+import { useT } from '../i18n';
 
 /** Un segmento por jugador. Hechos: tinta. Actual: rojo. Pendientes: papel. También se muestra "k/N" en la cabecera (8.2). */
 export function ProgressSegments({ total, current }: { total: number; current: number }) {
@@ -21,6 +22,7 @@ export function ProgressSegments({ total, current }: { total: number; current: n
 }
 
 export function VoteBar({ name, votes, total, top }: { name: string; votes: number; total: number; top: boolean }) {
+  const t = useT();
   const pct = total > 0 ? (votes / total) * 100 : 0;
   return (
     <li className="vote-row">
@@ -29,20 +31,21 @@ export function VoteBar({ name, votes, total, top }: { name: string; votes: numb
       <span className="vote-row__bar tone--fine" aria-hidden>
         <span className={top ? 'vote-row__fill vote-row__fill--top' : 'vote-row__fill'} style={{ width: `${pct}%` }} />
       </span>
-      <span className="vote-row__count">{votes === 1 ? '1 voto' : `${votes} votos`}</span>
+      <span className="vote-row__count">{t.common.votes(votes)}</span>
     </li>
   );
 }
 
 export function ScoreCell({ name, roundPoints, total }: { name: string; roundPoints: number; total: number }) {
+  const t = useT();
   return (
     <li className="score-cell">
       <span className="score-cell__text">
         <span className="score-cell__name">{name}</span>
         {roundPoints > 0 ? (
-          <span className="score-cell__tag">+{roundPoints} esta ronda</span>
+          <span className="score-cell__tag">{t.results.thisRound(roundPoints)}</span>
         ) : (
-          <span className="score-cell__none">Sin puntos</span>
+          <span className="score-cell__none">{t.results.noPoints}</span>
         )}
       </span>
       <span className="score-cell__total display">{total}</span>

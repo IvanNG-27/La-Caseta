@@ -5,10 +5,12 @@ import { X } from 'lucide-react';
 import { Pending } from './Pending';
 import { Button } from '../components/Buttons';
 import { useImpostor } from '../store/impostor';
+import { useT } from '../i18n';
 import { useExitConfirm } from '../hooks/useExitConfirm';
 
 export function ImpostorVote() {
   const navigate = useNavigate();
+  const t = useT();
   const { active, submitVotes, exit } = useImpostor();
   const { requestExit, dialog } = useExitConfirm(exit);
 
@@ -16,9 +18,9 @@ export function ImpostorVote() {
 
   return (
     <Pending
-      title="Votación"
-      description="Pantalla sin diseñar. Mientras tanto, el botón de abajo pasa a Resultados sin votos."
-      action={{ icon: X, label: 'Salir de la partida', onClick: requestExit }}
+      title={t.vote.title}
+      description={t.vote.pendingText}
+      action={{ icon: X, label: t.common.exitGame, onClick: requestExit }}
     >
       {/* TEMPORAL: sustituir por la votación real cuando esté diseñada. */}
       <Button
@@ -29,7 +31,7 @@ export function ImpostorVote() {
           navigate('/impostor/resultados', { replace: true });
         }}
       >
-        Ver resultados
+        {t.vote.seeResults}
       </Button>
       {dialog}
     </Pending>

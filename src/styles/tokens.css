@@ -5,6 +5,8 @@
   --paper: #ffffff;
   --accent: #e0262f;
   --placeholder: #666666;
+  /* Texto sobre rojo: siempre papel blanco (4,7 : 1), también en tema oscuro. */
+  --on-accent: #ffffff;
 
   /* 3.2 Tipografía */
   --font-display: 'Dela Gothic One', sans-serif;
@@ -38,4 +40,12 @@
   --press-scale: 0.97;
   --press-scale-l: 0.98;
   --press-ms: 80ms;
+}
+
+/* Tema oscuro: el negativo de la página. Se intercambian tinta y papel; el rojo no cambia.
+   Sigue habiendo solo los cuatro colores de la paleta (3.1). */
+:root[data-theme='dark'] {
+  --ink: #ffffff;
+  --paper: #111111;
+  color-scheme: dark;
 }

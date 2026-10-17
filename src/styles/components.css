@@ -63,7 +63,7 @@
 }
 .btn--primary {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--on-accent);
   font-size: 19px;
 }
 .btn--dark {
@@ -193,6 +193,7 @@
 }
 .avatar--selected {
   background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Fila de jugador */
@@ -439,7 +440,7 @@
   width: 36px;
   height: 36px;
   background: var(--accent);
-  color: var(--paper);
+  color: var(--on-accent);
   border: var(--border-inner) solid var(--ink);
 }
 
