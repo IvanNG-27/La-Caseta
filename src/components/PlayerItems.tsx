@@ -4,6 +4,7 @@ import { initialOf, type Player } from '../games/shared/players';
 import { IconButton } from './Buttons';
 import { Icon } from './Icon';
 import { useT } from '../i18n';
+import { FitText } from './FitText';
 
 /** Cuadrado 40 (listas), 34 (selector), 28 (votos), 60 (resultados). Inicial en Dela, blanca sobre tinta. */
 export function Avatar({ name, size, selected = false }: { name: string; size: 28 | 34 | 40 | 60; selected?: boolean }) {
@@ -36,7 +37,8 @@ export function PlayerToggle({
   onToggle,
 }: {
   player: Player;
-  points: number;
+  /** Puntos bajo el nombre (Yo nunca). Sin valor, no se muestran. */
+  points?: number;
   selected: boolean;
   onToggle: () => void;
 }) {
@@ -50,8 +52,11 @@ export function PlayerToggle({
     >
       <Avatar name={player.name} size={34} selected={selected} />
       <span className="player-toggle__text">
-        <span className="player-toggle__name">{player.name}</span>
-        <span className="player-toggle__points">{t.common.points(points)}</span>
+        {/* 8.4 / 09: nombres de hasta 12 caracteres sin cortarse en la rejilla de 2 columnas */}
+        <FitText max={16} min={11} display={false} className="player-toggle__name">
+          {player.name}
+        </FitText>
+        {points !== undefined && <span className="player-toggle__points">{t.common.points(points)}</span>}
       </span>
     </button>
   );

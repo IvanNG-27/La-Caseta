@@ -1,8 +1,8 @@
-// 05 · Progreso de reparto, barra de votos, celda de marcador y tarjeta de juego.
+// 05 · Progreso de reparto, celda de marcador y tarjeta de juego.
 import type { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Avatar } from './PlayerItems';
 import { Icon } from './Icon';
+import { FitText } from './FitText';
 import { useT } from '../i18n';
 
 /** Un segmento por jugador. Hechos: tinta. Actual: rojo. Pendientes: papel. También se muestra "k/N" en la cabecera (8.2). */
@@ -18,21 +18,6 @@ export function ProgressSegments({ total, current }: { total: number; current: n
         />
       ))}
     </div>
-  );
-}
-
-export function VoteBar({ name, votes, total, top }: { name: string; votes: number; total: number; top: boolean }) {
-  const t = useT();
-  const pct = total > 0 ? (votes / total) * 100 : 0;
-  return (
-    <li className="vote-row">
-      <Avatar name={name} size={28} />
-      <span className="vote-row__name">{name}</span>
-      <span className="vote-row__bar tone--fine" aria-hidden>
-        <span className={top ? 'vote-row__fill vote-row__fill--top' : 'vote-row__fill'} style={{ width: `${pct}%` }} />
-      </span>
-      <span className="vote-row__count">{t.common.votes(votes)}</span>
-    </li>
   );
 }
 
@@ -71,9 +56,10 @@ export function GameCard({ tag, title, description, illustration, layout, titleS
     <>
       <span className="game-card__text">
         <span className="game-card__tag">{tag}</span>
-        <span className="game-card__title display" style={{ fontSize: titleSize }}>
+        {/* 8.4: si el título no cabe en su columna, la letra se reduce en vez de invadir la ilustración. */}
+        <FitText max={titleSize} min={20} className="game-card__title">
           {title}
-        </span>
+        </FitText>
         <span className="game-card__desc">{description}</span>
       </span>
       <span className="game-card__art" aria-hidden>

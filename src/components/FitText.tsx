@@ -5,11 +5,13 @@ interface FitTextProps {
   as?: ElementType;
   max: number;
   min?: number;
+  /** Dela Gothic One en mayúsculas (titulares). false = conserva la fuente del contexto. */
+  display?: boolean;
   className?: string;
   children: ReactNode;
 }
 
-export function FitText({ as: Tag = 'span', max, min = 32, className, children }: FitTextProps) {
+export function FitText({ as: Tag = 'span', max, min = 32, display = true, className, children }: FitTextProps) {
   const ref = useRef<HTMLElement>(null);
   const [size, setSize] = useState(max);
 
@@ -26,13 +28,23 @@ export function FitText({ as: Tag = 'span', max, min = 32, className, children }
       setSize(Math.max(s, min));
     };
     fit();
+    // Recalcular cuando llegan las fuentes: medir con la fuente de reserva daría otro ancho.
+    let active = true;
+    document.fonts?.ready.then(() => active && fit());
     const ro = new ResizeObserver(fit);
     ro.observe(el.parentElement ?? el);
-    return () => ro.disconnect();
+    return () => {
+      active = false;
+      ro.disconnect();
+    };
   }, [max, min, children]);
 
   return (
-    <Tag ref={ref} className={['fit-text', 'display', className].filter(Boolean).join(' ')} style={{ fontSize: size }}>
+    <Tag
+      ref={ref}
+      className={['fit-text', display && 'display', className].filter(Boolean).join(' ')}
+      style={{ fontSize: size }}
+    >
       {children}
     </Tag>
   );

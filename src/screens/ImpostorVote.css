@@ -1,0 +1,40 @@
+.vote__head {
+  display: grid;
+  place-items: center;
+}
+.vote__question.fit-text {
+  width: 100%;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.vote__rules {
+  flex: none;
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.vote__pick {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px 12px;
+}
+.vote__pick-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex: none;
+}
+.vote__pick-title {
+  font-size: 14px;
+}
+.vote__pick-hint {
+  font-weight: 700;
+  font-size: 13px;
+}
+.vote__grid {
+  overflow-y: auto;
+}

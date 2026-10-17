@@ -247,6 +247,7 @@
 .player-toggle__text {
   display: flex;
   flex-direction: column;
+  flex: 1;
   min-width: 0;
 }
 .player-toggle__name {
@@ -278,48 +279,6 @@
 }
 .progress__seg--current {
   background: var(--accent);
-}
-
-/* Barra de votos */
-.vote-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  list-style: none;
-}
-.vote-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.vote-row__name {
-  width: 62px;
-  flex: none;
-  font-weight: 900;
-  font-size: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.vote-row__bar {
-  flex: 1;
-  height: var(--vote-bar-h);
-  border: var(--border-inner) solid var(--ink);
-}
-.vote-row__fill {
-  display: block;
-  height: 100%;
-  background: var(--ink);
-}
-.vote-row__fill--top {
-  background: var(--accent);
-}
-.vote-row__count {
-  flex: none;
-  min-width: 56px;
-  text-align: right;
-  font-weight: 900;
-  font-size: 14px;
 }
 
 /* Marcador */
@@ -401,6 +360,10 @@
   justify-content: flex-start;
   padding-bottom: 54px;
 }
+/* Separación mínima entre el texto y la ilustración de la tarjeta Impostor */
+.game-card--row .game-card__text {
+  padding-right: 16px;
+}
 .game-card__tag {
   padding: 2px 8px;
   background: var(--ink);
@@ -408,7 +371,8 @@
   font-weight: 700;
   font-size: 12px;
 }
-.game-card__title {
+.game-card__title.fit-text {
+  width: 100%;
   line-height: 1.05;
 }
 .game-card__desc {

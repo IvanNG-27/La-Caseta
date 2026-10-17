@@ -41,50 +41,29 @@ export function prepareRound(params: {
   return { word, impostorIds, starterId, usedWords: [...usedWords, word] };
 }
 
-/** Votos: id de quien vota → id del votado. */
-export type Votes = Record<string, string>;
-
-export function tallyVotes(players: readonly Player[], votes: Votes): { playerId: string; votes: number }[] {
-  const counts = new Map(players.map((p) => [p.id, 0]));
-  for (const target of Object.values(votes)) {
-    if (counts.has(target)) counts.set(target, (counts.get(target) ?? 0) + 1);
-  }
-  // Ordenadas de más a menos votos; a igualdad, se respeta el orden de la lista.
-  return players
-    .map((p) => ({ playerId: p.id, votes: counts.get(p.id) ?? 0 }))
-    .sort((a, b) => b.votes - a.votes);
-}
-
-/** El más votado, o null si no hay votos o hay empate en cabeza (PROPUESTA: empate = no pillado). */
-export function mostVoted(tally: readonly { playerId: string; votes: number }[]): string | null {
-  if (tally.length === 0 || tally[0].votes === 0) return null;
-  if (tally.length > 1 && tally[1].votes === tally[0].votes) return null;
-  return tally[0].playerId;
-}
-
 export interface RoundResult {
-  tally: { playerId: string; votes: number }[];
+  /** Jugador al que el grupo ha acusado tras hablarlo. */
+  accusedId: string;
   caught: boolean;
   /** Puntos ganados en esta ronda por jugador (solo los que suman). */
   points: Record<string, number>;
 }
 
 /**
- * 7.2.5 Resultado. Pillado si el más votado es impostor.
- * +1 a cada no impostor que votó a un impostor. PROPUESTA: +2 a cada impostor si no lo pillan.
+ * 7.2.5 Resultado. La votación es una reunión hablada: el grupo acusa a un solo jugador.
+ * Pillado si el acusado es impostor → +1 a cada inocente. Si no → +2 a cada impostor (PROPUESTA).
  */
-export function resolveRound(players: readonly Player[], impostorIds: readonly string[], votes: Votes): RoundResult {
-  const tally = tallyVotes(players, votes);
-  const top = mostVoted(tally);
-  const caught = top !== null && impostorIds.includes(top);
+export function resolveAccusation(
+  players: readonly Player[],
+  impostorIds: readonly string[],
+  accusedId: string,
+): RoundResult {
+  const caught = impostorIds.includes(accusedId);
   const points: Record<string, number> = {};
-  for (const [voterId, targetId] of Object.entries(votes)) {
-    if (!impostorIds.includes(voterId) && impostorIds.includes(targetId)) {
-      points[voterId] = (points[voterId] ?? 0) + 1;
-    }
+  if (caught) {
+    for (const p of players) if (!impostorIds.includes(p.id)) points[p.id] = 1;
+  } else {
+    for (const id of impostorIds) points[id] = 2;
   }
-  if (!caught) {
-    for (const id of impostorIds) points[id] = (points[id] ?? 0) + 2;
-  }
-  return { tally, caught, points };
+  return { accusedId, caught, points };
 }

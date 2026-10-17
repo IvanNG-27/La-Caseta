@@ -1,7 +1,7 @@
 // Partida de Impostor en curso (en memoria; se pierde al salir de la partida).
 import { create } from 'zustand';
 import { impostorWords, type Category } from '../data';
-import { prepareRound, resolveRound, type RoundResult, type Votes } from '../games/impostor/logic';
+import { prepareRound, resolveAccusation, type RoundResult } from '../games/impostor/logic';
 import type { Player } from '../games/shared/players';
 
 /** Estados de 6.3: A · Tapada, B/C · Revelado (palabra o impostor), D · Debate. */
@@ -27,7 +27,8 @@ interface ImpostorState {
   reveal: () => void;
   hideAndPass: () => void;
   goToVoting: () => void;
-  submitVotes: (votes: Votes) => void;
+  /** Votación hablada: el grupo acusa a un jugador. */
+  accuse: (accusedId: string) => void;
   nextRound: () => void;
   exit: () => void;
 }
@@ -70,9 +71,9 @@ export const useImpostor = create<ImpostorState>()((set, get) => {
       else set({ turn: turn + 1, phase: 'hidden' });
     },
     goToVoting: () => set({ phase: 'voting' }),
-    submitVotes: (votes) => {
+    accuse: (accusedId) => {
       const { players, impostorIds, scores } = get();
-      const result = resolveRound(players, impostorIds, votes);
+      const result = resolveAccusation(players, impostorIds, accusedId);
       const nextScores = { ...scores };
       for (const [id, pts] of Object.entries(result.points)) nextScores[id] = (nextScores[id] ?? 0) + pts;
       set({ result, scores: nextScores, phase: 'results' });

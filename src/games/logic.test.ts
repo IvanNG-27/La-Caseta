@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clampImpostors, maxImpostors, mostVoted, prepareRound, resolveRound } from './impostor/logic';
+import { clampImpostors, maxImpostors, prepareRound, resolveAccusation } from './impostor/logic';
 import { createDeck, drawCard } from './shared/random';
 import { validateNewPlayer, type Player } from './shared/players';
 import { draw, initTruthOrDare, nextTurn } from './verdadReto/logic';
@@ -47,18 +47,14 @@ describe('impostor', () => {
     expect(seen.size).toBe(3);
   });
 
-  it('un empate cuenta como no pillado', () => {
-    expect(mostVoted([{ playerId: 'p0', votes: 2 }, { playerId: 'p1', votes: 2 }])).toBeNull();
+  it('acusación acertada: pillado y +1 a cada inocente', () => {
+    const r = resolveAccusation(players, ['p2'], 'p2');
+    expect(r).toEqual({ accusedId: 'p2', caught: true, points: { p0: 1, p1: 1, p3: 1 } });
   });
 
-  it('puntúa: +1 a quien vota al impostor; +2 al impostor si se libra', () => {
-    const caught = resolveRound(players, ['p2'], { p0: 'p2', p1: 'p2', p2: 'p0', p3: 'p2' });
-    expect(caught.caught).toBe(true);
-    expect(caught.points).toEqual({ p0: 1, p1: 1, p3: 1 });
-
-    const escaped = resolveRound(players, ['p2'], { p0: 'p1', p1: 'p0', p2: 'p0', p3: 'p2' });
-    expect(escaped.caught).toBe(false);
-    expect(escaped.points).toEqual({ p3: 1, p2: 2 });
+  it('acusación fallida: se libra y +2 al impostor', () => {
+    const r = resolveAccusation(players, ['p2'], 'p0');
+    expect(r).toEqual({ accusedId: 'p0', caught: false, points: { p2: 2 } });
   });
 });
 

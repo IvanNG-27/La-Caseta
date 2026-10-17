@@ -26,18 +26,16 @@ src/
   styles/        tokens.css (03) · base.css · effects.css (04) · components.css (05)
   theme/         tokens.ts — tokens en formato máquina (3.7)
   components/    Panel, Header, Buttons, Form, PlayerItems, GameItems, fx (efectos 04), FitText, ConfirmDialog
-  screens/       Home, Players, ImpostorGame, ImpostorVote*, ImpostorResults, TruthOrDare, NeverHaveI, Settings
+  screens/       Home, Players, ImpostorGame, ImpostorVote, ImpostorResults, TruthOrDare, NeverHaveI, Settings
   games/         lógica pura de cada juego (07) + tests
   store/         players.ts y settings.ts (persistentes) · impostor.ts (partida en curso)
-  i18n/          textos de la interfaz: es.ts (español) y and.ts (andaluz)
+  i18n/          textos de la interfaz: es.ts (español), and.ts (andaluz) y va.ts (valencià)
   data/          content.json — palabras, cartas y frases (7.5), separado del código
   hooks/         useCountdown, useExitConfirm
 ```
 
-`*` = pantalla **PENDIENTE** de diseño (sección 10): solo existe la ruta con un aviso.
 
 ## Pendiente de decidir (sección 10)
 
-- Pantalla de votación (ahora un botón temporal pasa a Resultados sin votos).
 - Sonido y vibración (ajustes por añadir).
 - Nativo: ocultar contenido en multitarea y mantener la pantalla encendida (plugins de Capacitor).

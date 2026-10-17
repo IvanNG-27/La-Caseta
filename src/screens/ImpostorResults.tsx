@@ -5,7 +5,8 @@ import { Header, HeaderIndicator } from '../components/Header';
 import { Panel } from '../components/Panel';
 import { Caption, Sfx, Stamp } from '../components/fx';
 import { Button } from '../components/Buttons';
-import { ScoreCell, VoteBar } from '../components/GameItems';
+import { ScoreCell } from '../components/GameItems';
+import { Avatar } from '../components/PlayerItems';
 import { FitText } from '../components/FitText';
 import { useImpostor } from '../store/impostor';
 import { useT } from '../i18n';
@@ -16,14 +17,15 @@ export function ImpostorResults() {
   const t = useT();
   const game = useImpostor();
 
-  if (!game.active || !game.result) return <Navigate to="/" replace />;
+  if (!game.active) return <Navigate to="/" replace />;
+  // Sin resultado = ya ha empezado otra ronda ("Otra ronda"): se sigue a la partida, no a Inicio.
+  if (!game.result) return <Navigate to="/impostor" replace />;
 
   const { result, players, impostorIds, scores } = game;
   const byId = new Map(players.map((p) => [p.id, p]));
   // PENDIENTE: con varios impostores el diseño solo muestra un nombre; se muestran todos separados.
   const impostorNames = impostorIds.map((id) => byId.get(id)?.name ?? '').join(' · ');
-  const impostorVotes = result.tally.filter((t) => impostorIds.includes(t.playerId)).reduce((n, t) => n + t.votes, 0);
-  const topId = result.tally[0]?.votes > 0 ? result.tally[0].playerId : null;
+  const accused = byId.get(result.accusedId);
   const ranking = [...players].sort((a, b) => (scores[b.id] ?? 0) - (scores[a.id] ?? 0));
 
   const home = () => {
@@ -58,23 +60,24 @@ export function ImpostorResults() {
         </div>
         <Sfx text="バーン" size={30} vertical style={{ top: 10, right: 10 }} />
         <p className="results__footer">
-          {t.results.footer(impostorVotes, players.length, game.word)}
+          {t.results.footer(accused?.name ?? '', game.word)}
         </p>
       </Panel>
 
-      <Panel className="results__votes">
-        <h2 className="display results__votes-title">{t.results.votes}</h2>
-        <ul className="vote-list">
-          {result.tally.map((row) => (
-            <VoteBar
-              key={row.playerId}
-              name={byId.get(row.playerId)?.name ?? ''}
-              votes={row.votes}
-              total={players.length}
-              top={row.playerId === topId}
-            />
-          ))}
-        </ul>
+      <Panel className="results__accused">
+        <h2 className="results__accused-title">{t.results.accusedTitle}</h2>
+        <div className="results__accused-row">
+          <Avatar name={accused?.name ?? ''} size={40} />
+          <span className="results__accused-name">{accused?.name}</span>
+          <Stamp
+            variant={result.caught ? 'red' : 'outline'}
+            rotate={result.caught ? -4 : 3}
+            size={13}
+            style={{ marginLeft: 'auto' }}
+          >
+            {result.caught ? t.results.guilty : t.results.innocent}
+          </Stamp>
+        </div>
       </Panel>
 
       <ul className="score-grid" aria-label={t.results.scoreboard}>

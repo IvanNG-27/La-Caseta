@@ -30,13 +30,29 @@
   text-align: center;
 }
 
-.results__votes {
+.results__accused {
   flex: none;
-  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px 12px;
 }
-.results__votes-title {
-  margin-bottom: 10px;
-  font-size: 14px;
+.results__accused-title {
+  font-weight: 700;
+  font-size: 13px;
+}
+.results__accused-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.results__accused-name {
+  min-width: 0;
+  font-weight: 900;
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Fila de botones anclada abajo */
