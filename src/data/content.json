@@ -1,0 +1,32 @@
+{
+  "impostor": {
+    "Comida": ["Paella", "Tortilla", "Croqueta", "Gazpacho", "Churros"],
+    "Lugares": ["Playa", "Hospital", "Aeropuerto", "Biblioteca", "Gimnasio"],
+    "Animales": ["Pulpo", "Jirafa", "Pingüino", "Camello", "Murciélago"],
+    "Objetos": ["Paraguas", "Tostadora", "Tijeras", "Linterna", "Espejo"],
+    "Profesiones": ["Bombero", "Dentista", "Cocinero", "Piloto", "Fontanero"]
+  },
+  "verdadReto": {
+    "suave": {
+      "verdades": [
+        "¿Cuál es la última mentira que has dicho?",
+        "¿Qué es lo más vergonzoso que has buscado en internet?",
+        "¿A quién de este grupo llamarías en una emergencia?",
+        "¿Qué canción te sabes entera y nunca lo admitirías?"
+      ],
+      "retos": [
+        "Imita a alguien del grupo hasta que adivinen quién es.",
+        "Habla con acento durante las próximas tres rondas.",
+        "Cuenta un chiste. Si nadie se ríe, cuentas otro.",
+        "Haz 10 sentadillas mientras dices el abecedario."
+      ]
+    }
+  },
+  "yoNunca": [
+    "me he quedado dormido en el cine.",
+    "he enviado un mensaje a la persona equivocada.",
+    "he fingido estar al teléfono para no hablar con alguien.",
+    "he mentido sobre mi edad.",
+    "me he comido algo que se había caído al suelo."
+  ]
+}

@@ -1,0 +1,47 @@
+.never__phrase {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 16px 30px;
+}
+.never__bubble {
+  margin-right: 24px;
+  padding: 40px 22px 30px;
+}
+.never__caption {
+  position: absolute;
+  top: -16px;
+  left: 18px;
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 18px;
+}
+.never__text {
+  font-weight: 900;
+  font-size: 27px;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.never__who {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: none;
+  max-height: 45%;
+  padding: 10px 12px 12px;
+  overflow-y: auto;
+}
+.never__who-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.never__who-title {
+  font-size: 14px;
+}
+.never__who-hint {
+  font-weight: 700;
+  font-size: 13px;
+}

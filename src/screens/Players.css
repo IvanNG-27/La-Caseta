@@ -1,0 +1,52 @@
+.players__add {
+  flex: none;
+  padding: 10px 12px;
+}
+
+.players__cast {
+  display: flex;
+  flex-direction: column;
+}
+.players__band {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding: 8px 12px;
+  border-bottom: var(--border-panel) solid var(--ink);
+}
+.players__band-box {
+  padding: 3px 7px;
+  background: var(--paper);
+  border: var(--border-inner) solid var(--ink);
+  font-size: 13px;
+}
+.players__min {
+  margin-left: auto;
+  padding: 3px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 12px;
+}
+.players__list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.players__settings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: none;
+  padding: 12px;
+}
+.players__setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.players__label {
+  font-size: 13px;
+}

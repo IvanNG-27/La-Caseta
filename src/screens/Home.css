@@ -1,0 +1,61 @@
+.home__app-name {
+  flex: 1;
+  padding-left: 7px;
+}
+.home__chapter {
+  font-size: 13px;
+}
+
+.home__cover {
+  display: grid;
+  place-items: center;
+}
+.home__title {
+  font-size: 26px;
+  line-height: 1.1;
+}
+.home__players-link {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 12px;
+  background: var(--paper);
+  border: var(--border-panel) solid var(--ink);
+  font-weight: 700;
+  font-size: 15px;
+}
+.home__edit {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.home__impostor {
+  height: 166px;
+  flex: none;
+}
+
+.home__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+}
+
+.home__art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.home__hai {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 2px 5px;
+  background: var(--paper);
+  border: var(--border-inner) solid var(--ink);
+}

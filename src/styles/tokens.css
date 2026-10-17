@@ -1,0 +1,41 @@
+/* Sección 03 · Tokens. Espejo CSS de src/theme/tokens.ts. Solo estos cuatro colores. */
+:root {
+  /* 3.1 Color */
+  --ink: #111111;
+  --paper: #ffffff;
+  --accent: #e0262f;
+  --placeholder: #666666;
+
+  /* 3.2 Tipografía */
+  --font-display: 'Dela Gothic One', sans-serif;
+  --font-body: 'Zen Kaku Gothic New', sans-serif;
+
+  /* 3.3 Medidas y espaciado */
+  --page-padding: 14px;
+  --gutter: 10px;
+  --panel-padding: 12px;
+  --gap-s: 6px;
+  --gap-m: 10px;
+  --header-h: 58px;
+  --header-h-l: 60px;
+  --cta-h: 60px;
+  --input-h: 52px;
+  --icon-btn: 44px;
+  --chip-h: 44px;
+  --player-row-h: 58px;
+  --player-toggle-h: 60px;
+  --progress-h: 12px;
+  --vote-bar-h: 16px;
+  --touch-min: 44px;
+
+  /* 3.4 Bordes y formas */
+  --border-panel: 3px;
+  --border-inner: 2px;
+  --bubble-radius: 44px;
+  --burst-stroke: 5px;
+
+  /* 3.5 Movimiento */
+  --press-scale: 0.97;
+  --press-scale-l: 0.98;
+  --press-ms: 80ms;
+}

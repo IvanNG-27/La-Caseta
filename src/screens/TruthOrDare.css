@@ -1,0 +1,94 @@
+.tod__turn {
+  display: grid;
+  place-items: center;
+  padding: 24px 12px 8px;
+}
+.tod__name {
+  padding: 0 10px;
+}
+
+/* Estado Elegir: dos botones-viñeta apilados de igual alto */
+.tod__choices {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--gutter);
+}
+.tod__choice {
+  display: flex;
+  padding: 16px;
+  color: var(--ink);
+  text-align: left;
+}
+.tod__choice--truth {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.tod__choice--dare {
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-align: right;
+}
+.tod__choice-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--border-panel) solid var(--ink);
+}
+.tod__choice-box--ink {
+  align-items: flex-end;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--paper);
+}
+.tod__choice-title {
+  font-size: 42px;
+}
+.tod__choice-sub {
+  font-weight: 900;
+  font-size: 15px;
+}
+
+/* Estado Carta */
+.tod__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 16px 24px;
+}
+.tod__type {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 10px;
+  color: var(--paper);
+  font-size: 16px;
+}
+.tod__type--verdad {
+  background: var(--ink);
+}
+.tod__type--reto {
+  background: var(--accent);
+}
+.tod__count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 10px;
+  background: var(--paper);
+  border-left: var(--border-panel) solid var(--ink);
+  border-bottom: var(--border-panel) solid var(--ink);
+  font-weight: 900;
+  font-size: 13px;
+}
+.tod__bubble {
+  padding: 28px 22px;
+}
+.tod__prompt {
+  font-weight: 900;
+  font-size: 27px;
+  line-height: 1.25;
+  text-align: center;
+}

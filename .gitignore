@@ -1,0 +1,7 @@
+node_modules
+dist
+*.local
+.DS_Store
+# Plataformas nativas generadas por Capacitor (se añaden con `npx cap add`)
+android/app/build
+ios/App/Pods
