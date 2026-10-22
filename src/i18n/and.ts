@@ -99,6 +99,8 @@ export const and: Dict = {
     accuseShort: 'Acusá',
   },
   results: {
+    winnerImpostor: (n) => (n > 1 ? ['¡Ganan lo', 'impostore!'] : ['¡Gana er', 'impostó!']),
+    winnerInnocents: ['¡Ganan lo', 'inocente!'],
     title: 'Resultao',
     round: (n) => `Ronda ${n}`,
     impostorWas: 'Er impostó era…',

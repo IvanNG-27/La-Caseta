@@ -101,6 +101,8 @@ export const va: Dict = {
     accuseShort: 'Acusar',
   },
   results: {
+    winnerImpostor: (n) => (n > 1 ? ['Guanyen els', 'impostors!'] : ['Guanya', "l'impostor!"]),
+    winnerInnocents: ['Guanyen els', 'innocents!'],
     title: 'Resultats',
     round: (n) => `Ronda ${n}`,
     impostorWas: "L'impostor era…",

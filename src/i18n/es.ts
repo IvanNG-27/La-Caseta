@@ -101,6 +101,8 @@ export const es = {
     accuseShort: 'Acusar',
   },
   results: {
+    winnerImpostor: (n: number) => (n > 1 ? ['¡Ganan los', 'impostores!'] : ['¡Gana el', 'impostor!']),
+    winnerInnocents: ['¡Ganan los', 'inocentes!'],
     title: 'Resultados',
     round: (n: number) => `Ronda ${n}`,
     impostorWas: 'El impostor era…',

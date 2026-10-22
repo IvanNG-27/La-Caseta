@@ -10,6 +10,8 @@ import { Avatar } from '../components/PlayerItems';
 import { FitText } from '../components/FitText';
 import { useImpostor } from '../store/impostor';
 import { useT } from '../i18n';
+import winnerGif from '../assets/ganador.gif';
+import winnerStill from '../assets/ganador.png';
 import './ImpostorResults.css';
 
 export function ImpostorResults() {
@@ -27,6 +29,8 @@ export function ImpostorResults() {
   const impostorNames = impostorIds.map((id) => byId.get(id)?.name ?? '').join(' · ');
   const accused = byId.get(result.accusedId);
   const ranking = [...players].sort((a, b) => (scores[b.id] ?? 0) - (scores[a.id] ?? 0));
+  // Si pillan al impostor ganan los inocentes; si no, gana el impostor (o los impostores).
+  const winner = result.caught ? t.results.winnerInnocents : t.results.winnerImpostor(impostorIds.length);
 
   const home = () => {
     game.exit();
@@ -46,6 +50,20 @@ export function ImpostorResults() {
         action={{ icon: X, label: t.common.backHome, onClick: home }}
         right={<HeaderIndicator>{t.results.round(game.round)}</HeaderIndicator>}
       />
+
+      {/* Viñeta de ganador: GIF + quién gana la ronda */}
+      <Panel height={216} focusLines className="results__winner">
+        <picture className="results__winner-gif" aria-hidden>
+          {/* 3.5: con "reducir movimiento", imagen fija en lugar del GIF */}
+          <source srcSet={winnerStill} media="(prefers-reduced-motion: reduce)" />
+          <img src={winnerGif} alt="" width={130} height={130} />
+        </picture>
+        <FitText as="h2" max={26} min={18} className="plate results__winner-text">
+          {winner[0]}
+          <br />
+          {winner[1]}
+        </FitText>
+      </Panel>
 
       <Panel height={240} background="ink" focusLines className="results__reveal">
         <Caption>{t.results.impostorWas}</Caption>

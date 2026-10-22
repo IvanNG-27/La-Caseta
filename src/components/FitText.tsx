@@ -29,12 +29,17 @@ export function FitText({ as: Tag = 'span', max, min = 32, display = true, class
     };
     fit();
     // Recalcular cuando llegan las fuentes: medir con la fuente de reserva daría otro ancho.
+    // `ready` puede venir ya resuelto antes de que empiece la carga que nos afecta, así que además
+    // se escucha cada carga terminada (loadingdone).
     let active = true;
-    document.fonts?.ready.then(() => active && fit());
+    const refit = () => active && fit();
+    document.fonts?.ready.then(refit);
+    document.fonts?.addEventListener('loadingdone', refit);
     const ro = new ResizeObserver(fit);
     ro.observe(el.parentElement ?? el);
     return () => {
       active = false;
+      document.fonts?.removeEventListener('loadingdone', refit);
       ro.disconnect();
     };
   }, [max, min, children]);
