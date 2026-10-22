@@ -25,6 +25,9 @@ export const and: Dict = {
     Profesiones: 'Ofisio',
     Anime: 'Anime',
     Juegos: 'Juego',
+    Pelis: 'Peli',
+    Youtubers: 'Youtuber',
+    Todas: 'Toas',
   },
   home: {
     title: ['¿A qué', 'jugamo?'],
@@ -76,6 +79,7 @@ export const and: Dict = {
     hint: (category) => `Pista: ${category}`,
     impostorNote: 'No sabe la palabra, miarma. Escucha, disimula y que no te pillen.',
     hideAndPass: (name) => `Tapa y pásale a ${name}`,
+    hideAndPassShort: (name) => `Pásale a ${name}`,
     hideAndDebate: 'Tapa y a debatí',
     debate: '¡A debatí!',
     rules: 'Tos tenéi vuestro papé. Por turno, desí una palabra que tenga que vé. Er impostó va a intentá que no se le note.',
@@ -92,6 +96,7 @@ export const and: Dict = {
     tapToPick: 'Toca pa elegí',
     needPick: 'Elegí a quién acusái',
     accuse: (name) => `Acusá a ${name}`,
+    accuseShort: 'Acusá',
   },
   results: {
     title: 'Resultao',
@@ -119,6 +124,7 @@ export const and: Dict = {
     dareSub: 'Haz lo que diga la carta',
     card: (k, n) => `Carta ${k}/${n}`,
     another: 'Otra carta',
+    anotherShort: 'Otra',
     done: '¡Ya ta!',
   },
   never: {

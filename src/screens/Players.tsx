@@ -10,7 +10,7 @@ import { PlayerRow } from '../components/PlayerItems';
 import { usePlayers } from '../store/players';
 import { useImpostor } from '../store/impostor';
 import { useT } from '../i18n';
-import { CATEGORIES } from '../data';
+import { CATEGORY_CHOICES } from '../data';
 import { maxImpostors } from '../games/impostor/logic';
 import { GAME_PATH, MAX_NAME_LENGTH, MIN_PLAYERS, type GameId } from '../games/shared/players';
 import './Players.css';
@@ -92,7 +92,7 @@ export function Players() {
           </div>
           <span className="display players__label">{t.players.category}</span>
           <ChipGroup label={t.players.category}>
-            {CATEGORIES.map((c) => (
+            {CATEGORY_CHOICES.map((c) => (
               <Chip key={c} selected={c === category} onSelect={() => setCategory(c)}>
                 {t.categories[c] ?? c}
               </Chip>

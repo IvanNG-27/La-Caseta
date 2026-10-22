@@ -1,6 +1,6 @@
 // Partida de Impostor en curso (en memoria; se pierde al salir de la partida).
 import { create } from 'zustand';
-import { impostorWords, type Category } from '../data';
+import { impostorPool, type Category, type CategoryChoice } from '../data';
 import { prepareRound, resolveAccusation, type RoundResult } from '../games/impostor/logic';
 import type { Player } from '../games/shared/players';
 
@@ -10,7 +10,10 @@ export type ImpostorPhase = 'hidden' | 'revealed' | 'debate' | 'voting' | 'resul
 interface ImpostorState {
   active: boolean;
   players: Player[];
-  category: Category;
+  /** Categoría elegida en Ajustes (puede ser "Todas"). */
+  category: CategoryChoice;
+  /** Categoría real de la palabra de esta ronda: la que se muestra y la pista del impostor. */
+  wordCategory: Category;
   impostorCount: number;
   round: number;
   word: string;
@@ -23,7 +26,7 @@ interface ImpostorState {
   /** Marcador acumulado de la sesión. */
   scores: Record<string, number>;
 
-  startGame: (players: Player[], impostorCount: number, category: Category) => void;
+  startGame: (players: Player[], impostorCount: number, category: CategoryChoice) => void;
   reveal: () => void;
   hideAndPass: () => void;
   goToVoting: () => void;
@@ -36,7 +39,8 @@ interface ImpostorState {
 const initial = {
   active: false,
   players: [] as Player[],
-  category: 'Comida' as Category,
+  category: 'Comida' as CategoryChoice,
+  wordCategory: 'Comida' as Category,
   impostorCount: 1,
   round: 0,
   word: '',
@@ -52,7 +56,7 @@ const initial = {
 export const useImpostor = create<ImpostorState>()((set, get) => {
   const newRound = (round: number) => {
     const { players, impostorCount, category, usedWords } = get();
-    const setup = prepareRound({ players, impostorCount, words: impostorWords(category), usedWords });
+    const setup = prepareRound({ players, impostorCount, pool: impostorPool(category), usedWords });
     set({ ...setup, round, turn: 0, phase: 'hidden', result: null });
   };
 

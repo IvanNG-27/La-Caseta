@@ -1,18 +1,18 @@
 // Jugadores y ajustes de Impostor: se guardan en el dispositivo (6.2, 7.1).
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { DEFAULT_CATEGORY, type Category } from '../data';
+import { DEFAULT_CATEGORY, type CategoryChoice } from '../data';
 import { MAX_NAME_LENGTH, validateNewPlayer, type AddPlayerError, type Player } from '../games/shared/players';
 import { clampImpostors } from '../games/impostor/logic';
 
 interface PlayersState {
   players: Player[];
   impostorCount: number;
-  category: Category;
+  category: CategoryChoice;
   addPlayer: (name: string) => AddPlayerError | null;
   removePlayer: (id: string) => void;
   setImpostorCount: (count: number) => void;
-  setCategory: (category: Category) => void;
+  setCategory: (category: CategoryChoice) => void;
 }
 
 const newId = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`);

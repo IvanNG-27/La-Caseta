@@ -54,7 +54,7 @@ export function ImpostorResults() {
           <Stamp onInk border={3} rotate={-8} size={16} className="results__verdict">
             {result.caught ? t.results.caught : t.results.escaped}
           </Stamp>
-          <FitText as="p" max={84} className="plate--ink results__name">
+          <FitText as="p" max={84} min={20} className="plate--ink results__name">
             {impostorNames}
           </FitText>
         </div>
@@ -65,18 +65,17 @@ export function ImpostorResults() {
       </Panel>
 
       <Panel className="results__accused">
-        <h2 className="results__accused-title">{t.results.accusedTitle}</h2>
-        <div className="results__accused-row">
-          <Avatar name={accused?.name ?? ''} size={40} />
-          <span className="results__accused-name">{accused?.name}</span>
-          <Stamp
-            variant={result.caught ? 'red' : 'outline'}
-            rotate={result.caught ? -4 : 3}
-            size={13}
-            style={{ marginLeft: 'auto' }}
-          >
+        <div className="results__accused-head">
+          <h2 className="results__accused-title">{t.results.accusedTitle}</h2>
+          <Stamp variant={result.caught ? 'red' : 'outline'} rotate={result.caught ? -4 : 3} size={13}>
             {result.caught ? t.results.guilty : t.results.innocent}
           </Stamp>
+        </div>
+        <div className="results__accused-row">
+          <Avatar name={accused?.name ?? ''} size={40} />
+          <FitText max={17} min={11} display={false} className="results__accused-name">
+            {accused?.name}
+          </FitText>
         </div>
       </Panel>
 

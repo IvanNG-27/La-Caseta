@@ -16,6 +16,16 @@
       "Minecraft", "Fortnite", "Tetris", "Pokémon", "Mario Kart", "Among Us", "Zelda", "GTA",
       "FIFA", "Sonic", "Pac-Man", "Roblox", "Valorant", "Los Sims", "Halo", "Overwatch",
       "Fall Guys", "Kirby", "Crash", "Doom"
+    ],
+    "Pelis": [
+      "Titanic", "Shrek", "Avatar", "Frozen", "Toy Story", "Matrix", "Gladiator", "Jurassic Park",
+      "Star Wars", "Harry Potter", "El Rey León", "Los Vengadores", "Coco", "Up", "Tiburón", "Rocky",
+      "Spider-Man", "Batman", "Barbie", "Torrente", "Buscando a Nemo", "Grease", "Mamma Mia", "E.T."
+    ],
+    "Youtubers": [
+      "Vegetta", "Rubius", "Willyrex", "TheGrefg", "Auron", "Agustin", "Pereira", "Jordi Wild",
+      "Ibai", "Mangel", "DjMaRiiO", "Lolito", "ElXokas", "Alexby", "Luzu", "Mikecrack",
+      "Illojuan", "Cristinini", "Wismichu", "Byviruzz"
     ]
   },
   "verdadReto": {

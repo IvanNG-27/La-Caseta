@@ -26,6 +26,9 @@ export const va: Dict = {
     Profesiones: 'Professions',
     Anime: 'Anime',
     Juegos: 'Jocs',
+    Pelis: 'Pel·lis',
+    Youtubers: 'Youtubers',
+    Todas: 'Totes',
   },
   home: {
     title: ['A què', 'juguem?'],
@@ -77,6 +80,7 @@ export const va: Dict = {
     hint: (category) => `Pista: ${category}`,
     impostorNote: 'No coneixes la paraula. Escolta, dissimula i que no et pillen.',
     hideAndPass: (name) => `Amagar i passar a ${name}`,
+    hideAndPassShort: (name) => `Passa a ${name}`,
     hideAndDebate: 'Amagar i debatre',
     debate: 'A debatre!',
     rules:
@@ -94,6 +98,7 @@ export const va: Dict = {
     tapToPick: 'Toca per a triar',
     needPick: 'Trieu a qui acuseu',
     accuse: (name) => `Acusar ${name}`,
+    accuseShort: 'Acusar',
   },
   results: {
     title: 'Resultats',
@@ -121,6 +126,7 @@ export const va: Dict = {
     dareSub: 'Fes el que diga la carta',
     card: (k, n) => `Carta ${k}/${n}`,
     another: 'Altra carta',
+    anotherShort: 'Altra',
     done: 'Fet!',
   },
   never: {

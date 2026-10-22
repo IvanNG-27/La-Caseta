@@ -4,7 +4,7 @@ import { createDeck, drawCard } from './shared/random';
 import { validateNewPlayer, type Player } from './shared/players';
 import { draw, initTruthOrDare, nextTurn } from './verdadReto/logic';
 import { initNeverHaveI, nextPhrase, toggleSelected } from './yoNunca/logic';
-import { CATEGORIES, impostorWords } from '../data';
+import { ALL_CATEGORIES, CATEGORIES, impostorPool, impostorWords } from '../data';
 
 const players: Player[] = ['Lucía', 'Marcos', 'Ana', 'Dani'].map((name, i) => ({ id: `p${i}`, name }));
 
@@ -14,6 +14,11 @@ describe('contenido', () => {
       const words = impostorWords(category);
       expect(new Set(words.map((w) => w.toLocaleLowerCase('es-ES'))).size, category).toBe(words.length);
     }
+  });
+
+  it('ninguna palabra está en dos categorías (con "Todas" la pista sería ambigua)', () => {
+    const all = CATEGORIES.flatMap((c) => impostorWords(c).map((w) => w.toLocaleLowerCase('es-ES')));
+    expect(new Set(all).size).toBe(all.length);
   });
 });
 
@@ -35,16 +40,28 @@ describe('impostor', () => {
   });
 
   it('no repite palabras dentro de la sesión', () => {
-    const words = ['a', 'b', 'c'];
+    const pool = ['a', 'b', 'c'].map((word) => ({ word, category: 'X' }));
     let used: string[] = [];
     const seen = new Set<string>();
     for (let i = 0; i < 3; i++) {
-      const r = prepareRound({ players, impostorCount: 1, words, usedWords: used });
+      const r = prepareRound({ players, impostorCount: 1, pool, usedWords: used });
       seen.add(r.word);
       used = r.usedWords;
       expect(r.impostorIds).toHaveLength(1);
     }
     expect(seen.size).toBe(3);
+  });
+
+  it('"Todas" reúne todas las categorías y la pista es la categoría real de la palabra', () => {
+    const pool = impostorPool(ALL_CATEGORIES);
+    expect(pool).toHaveLength(CATEGORIES.reduce((n, c) => n + impostorWords(c).length, 0));
+    let used: string[] = [];
+    for (let i = 0; i < 30; i++) {
+      const r = prepareRound({ players, impostorCount: 1, pool, usedWords: used });
+      used = r.usedWords;
+      expect(impostorWords(r.wordCategory)).toContain(r.word);
+    }
+    expect(new Set(used).size).toBe(30); // sin repetir dentro de la sesión
   });
 
   it('acusación acertada: pillado y +1 a cada inocente', () => {

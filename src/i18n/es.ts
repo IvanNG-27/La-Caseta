@@ -25,6 +25,9 @@ export const es = {
     Profesiones: 'Profesiones',
     Anime: 'Anime',
     Juegos: 'Juegos',
+    Pelis: 'Pelis',
+    Youtubers: 'Youtubers',
+    Todas: 'Todas',
   } as Record<string, string>,
   home: {
     title: ['¿A qué', 'jugamos?'],
@@ -76,6 +79,7 @@ export const es = {
     hint: (category: string) => `Pista: ${category}`,
     impostorNote: 'No conoces la palabra. Escucha, disimula y que no te pillen.',
     hideAndPass: (name: string) => `Ocultar y pasar a ${name}`,
+    hideAndPassShort: (name: string) => `Pasar a ${name}`,
     hideAndDebate: 'Ocultar y debatir',
     debate: '¡A debatir!',
     rules:
@@ -93,6 +97,7 @@ export const es = {
     tapToPick: 'Toca para elegir',
     needPick: 'Elegid a quién acusáis',
     accuse: (name: string) => `Acusar a ${name}`,
+    accuseShort: 'Acusar',
   },
   results: {
     title: 'Resultados',
@@ -120,6 +125,7 @@ export const es = {
     dareSub: 'Haz lo que diga la carta',
     card: (k: number, n: number) => `Carta ${k}/${n}`,
     another: 'Otra carta',
+    anotherShort: 'Otra',
     done: '¡Hecho!',
   },
   never: {

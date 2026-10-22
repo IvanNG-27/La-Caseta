@@ -32,7 +32,7 @@ export function ImpostorGame() {
   const isLast = game.turn === total - 1;
   const isImpostor = game.impostorIds.includes(player.id);
   const next = game.players[game.turn + 1];
-  const category = t.categories[game.category] ?? game.category;
+  const category = t.categories[game.wordCategory] ?? game.wordCategory;
 
   return (
     <main className="screen impostor">
@@ -63,7 +63,7 @@ export function ImpostorGame() {
 
           <Panel height={130} focusLines className="impostor__name">
             <Caption>{t.impostor.passTo}</Caption>
-            <FitText as="h1" max={50} className="plate impostor__name-text">
+            <FitText as="h1" max={50} min={22} className="plate impostor__name-text">
               {player.name}
             </FitText>
           </Panel>
@@ -76,7 +76,13 @@ export function ImpostorGame() {
             {game.phase === 'hidden' ? (
               <p className="impostor__hint">{t.impostor.tapHint}</p>
             ) : (
-              <Button variant="dark" arrow onClick={game.hideAndPass} style={{ width: '100%' }}>
+              <Button
+                variant="dark"
+                arrow
+                onClick={game.hideAndPass}
+                style={{ width: '100%' }}
+                shortLabel={isLast ? undefined : t.impostor.hideAndPassShort(next.name)}
+              >
                 {isLast ? t.impostor.hideAndDebate : t.impostor.hideAndPass(next.name)}
               </Button>
             )}

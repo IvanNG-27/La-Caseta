@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { IconButton } from './Buttons';
+import { FitText } from './FitText';
 
 interface HeaderProps {
   title: ReactNode;
@@ -21,9 +22,10 @@ export function Header({ title, subtitle, titleSize = 16, titleAs: Title = 'p', 
     <header className="header" style={{ height }}>
       {action && <IconButton variant="header" icon={action.icon} label={action.label} onClick={action.onClick} />}
       <div className="header__titles">
-        <Title className="display header__title" style={{ fontSize: titleSize }}>
+        {/* 8.4: si el título no cabe junto al sello o indicador, la letra se reduce en vez de cortarse */}
+        <FitText as={Title} max={titleSize} min={11} className="header__title">
           {title}
-        </Title>
+        </FitText>
         {subtitle && <p className="header__subtitle">{subtitle}</p>}
       </div>
       {right}

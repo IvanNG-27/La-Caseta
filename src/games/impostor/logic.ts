@@ -8,8 +8,10 @@ export const maxImpostors = (playerCount: number): number => Math.max(1, Math.fl
 export const clampImpostors = (requested: number, playerCount: number): number =>
   Math.min(Math.max(1, requested), maxImpostors(playerCount));
 
-export interface RoundSetup {
+export interface RoundSetup<C extends string = string> {
   word: string;
+  /** Categoría real de la palabra: es la pista del impostor (con "Todas" varía en cada ronda). */
+  wordCategory: C;
   impostorIds: string[];
   starterId: string;
   /** Palabras ya usadas en la sesión, incluida la de esta ronda. */
@@ -17,28 +19,29 @@ export interface RoundSetup {
 }
 
 /** 7.2.1 Preparar la ronda: palabra al azar (sin repetir en la sesión), impostores y quién empieza el debate. */
-export function prepareRound(params: {
+export function prepareRound<C extends string>(params: {
   players: readonly Player[];
   impostorCount: number;
-  words: readonly string[];
+  /** Palabras posibles con su categoría (una categoría, o todas). */
+  pool: readonly { word: string; category: C }[];
   usedWords: readonly string[];
   rng?: Rng;
-}): RoundSetup {
-  const { players, words, rng = Math.random } = params;
-  let available = words.filter((w) => !params.usedWords.includes(w));
+}): RoundSetup<C> {
+  const { players, pool, rng = Math.random } = params;
+  let available = pool.filter((e) => !params.usedWords.includes(e.word));
   let usedWords = [...params.usedWords];
-  // Si la categoría se agota, se vuelve a empezar con todas sus palabras.
+  // Si se agotan las palabras posibles, se vuelve a empezar con todas.
   if (available.length === 0) {
-    available = [...words];
-    usedWords = usedWords.filter((w) => !words.includes(w));
+    available = [...pool];
+    usedWords = usedWords.filter((w) => !pool.some((e) => e.word === w));
   }
-  const word = pickOne(available, rng);
+  const { word, category } = pickOne(available, rng);
   const count = clampImpostors(params.impostorCount, players.length);
   const impostorIds = shuffle(players, rng)
     .slice(0, count)
     .map((p) => p.id);
   const starterId = pickOne(players, rng).id;
-  return { word, impostorIds, starterId, usedWords: [...usedWords, word] };
+  return { word, wordCategory: category, impostorIds, starterId, usedWords: [...usedWords, word] };
 }
 
 export interface RoundResult {

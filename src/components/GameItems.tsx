@@ -26,7 +26,9 @@ export function ScoreCell({ name, roundPoints, total }: { name: string; roundPoi
   return (
     <li className="score-cell">
       <span className="score-cell__text">
-        <span className="score-cell__name">{name}</span>
+        <FitText max={15} min={11} display={false} className="score-cell__name">
+          {name}
+        </FitText>
         {roundPoints > 0 ? (
           <span className="score-cell__tag">{t.results.thisRound(roundPoints)}</span>
         ) : (

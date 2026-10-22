@@ -39,7 +39,7 @@ export function TruthOrDare() {
 
       <Panel height={120} focusLines className="tod__turn">
         <Caption>{t.tod.turnOf}</Caption>
-        <FitText as="h1" max={46} className="plate tod__name">
+        <FitText as="h1" max={46} min={22} className="plate tod__name">
           {player.name}
         </FitText>
       </Panel>
@@ -86,7 +86,13 @@ export function TruthOrDare() {
             </Bubble>
           </Panel>
           <div className="row">
-            <Button variant="secondary" iconStart={RotateCcw} flex={1} onClick={() => setState((s) => draw(s, card.type))}>
+            <Button
+              variant="secondary"
+              iconStart={RotateCcw}
+              flex={1}
+              shortLabel={t.tod.anotherShort}
+              onClick={() => setState((s) => draw(s, card.type))}
+            >
               {t.tod.another}
             </Button>
             <Button arrow flex={1} onClick={() => setState((s) => nextTurn(s, players.length))}>
