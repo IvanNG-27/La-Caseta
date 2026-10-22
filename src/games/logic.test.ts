@@ -16,9 +16,21 @@ describe('contenido', () => {
     }
   });
 
-  it('ninguna palabra está en dos categorías (con "Todas" la pista sería ambigua)', () => {
+  it('ninguna palabra está en dos categorías (con "Todas" la categoría sería ambigua)', () => {
     const all = CATEGORIES.flatMap((c) => impostorWords(c).map((w) => w.toLocaleLowerCase('es-ES')));
     expect(new Set(all).size).toBe(all.length);
+  });
+
+  it('cada palabra tiene una pista sutil: ni la palabra, ni la categoría, ni otra palabra del juego', () => {
+    const low = (s: string) => s.toLocaleLowerCase('es-ES');
+    const allWords = new Set(CATEGORIES.flatMap((c) => impostorWords(c).map(low)));
+    for (const { word, category, hint } of impostorPool(ALL_CATEGORIES)) {
+      expect(hint.trim(), word).not.toBe('');
+      expect(low(hint), word).not.toContain(low(word));
+      expect(low(word), word).not.toContain(low(hint));
+      expect(low(hint), word).not.toBe(low(category));
+      expect(allWords.has(low(hint)), `${word} → ${hint}`).toBe(false);
+    }
   });
 });
 
@@ -40,7 +52,7 @@ describe('impostor', () => {
   });
 
   it('no repite palabras dentro de la sesión', () => {
-    const pool = ['a', 'b', 'c'].map((word) => ({ word, category: 'X' }));
+    const pool = ['a', 'b', 'c'].map((word) => ({ word, category: 'X', hint: 'h' }));
     let used: string[] = [];
     const seen = new Set<string>();
     for (let i = 0; i < 3; i++) {
@@ -52,7 +64,7 @@ describe('impostor', () => {
     expect(seen.size).toBe(3);
   });
 
-  it('"Todas" reúne todas las categorías y la pista es la categoría real de la palabra', () => {
+  it('"Todas" reúne todas las categorías; la ronda guarda la categoría y la pista de su palabra', () => {
     const pool = impostorPool(ALL_CATEGORIES);
     expect(pool).toHaveLength(CATEGORIES.reduce((n, c) => n + impostorWords(c).length, 0));
     let used: string[] = [];
@@ -60,6 +72,7 @@ describe('impostor', () => {
       const r = prepareRound({ players, impostorCount: 1, pool, usedWords: used });
       used = r.usedWords;
       expect(impostorWords(r.wordCategory)).toContain(r.word);
+      expect(pool.find((e) => e.word === r.word)?.hint).toBe(r.wordHint);
     }
     expect(new Set(used).size).toBe(30); // sin repetir dentro de la sesión
   });

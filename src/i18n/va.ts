@@ -66,7 +66,7 @@ export const va: Dict = {
   },
   impostor: {
     title: 'Impostor',
-    roundLine: (round, category) => `Ronda ${round} · ${category}`,
+    roundLine: (round) => `Ronda ${round}`,
     playerOf: (k, n) => `Jugador ${k} de ${n}`,
     passTo: 'Passa el mòbil a…',
     tap: 'Toca!',
@@ -77,7 +77,7 @@ export const va: Dict = {
     wordNote: 'Un de vosaltres no la sap. Que no et pille.',
     youAre: 'Ets',
     impostorWord: 'Impostor',
-    hint: (category) => `Pista: ${category}`,
+    hint: (hint) => `Pista: ${hint}`,
     impostorNote: 'No coneixes la paraula. Escolta, dissimula i que no et pillen.',
     hideAndPass: (name) => `Amagar i passar a ${name}`,
     hideAndPassShort: (name) => `Passa a ${name}`,

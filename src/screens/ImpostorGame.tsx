@@ -38,7 +38,7 @@ export function ImpostorGame() {
     <main className="screen impostor">
       <Header
         title={t.impostor.title}
-        subtitle={t.impostor.roundLine(game.round, category)}
+        subtitle={t.impostor.roundLine(game.round)}
         action={{ icon: X, label: t.common.exitGame, onClick: requestExit }}
         right={
           !isDebate && (
@@ -70,7 +70,7 @@ export function ImpostorGame() {
 
           {game.phase === 'hidden' && <Hidden onReveal={game.reveal} />}
           {game.phase === 'revealed' && !isImpostor && <Word word={game.word} category={category} />}
-          {game.phase === 'revealed' && isImpostor && <Impostor category={category} />}
+          {game.phase === 'revealed' && isImpostor && <Impostor hint={game.wordHint} />}
 
           <div className="impostor__bottom">
             {game.phase === 'hidden' ? (
@@ -135,15 +135,15 @@ function Word({ word, category }: { word: string; category: string }) {
   );
 }
 
-/** C · Impostor — viñeta invertida (4.10). */
-function Impostor({ category }: { category: string }) {
+/** C · Impostor — viñeta invertida (4.10). Recibe una pista sutil, nunca la categoría. */
+function Impostor({ hint }: { hint: string }) {
   const t = useT();
   return (
     <Panel grow background="ink" focusLines className="impostor__main impostor__reveal">
       <span className="plate impostor__eres">{t.impostor.youAre}</span>
       <span className="display plate--ink impostor__big">{t.impostor.impostorWord}</span>
       <Stamp onInk size={13}>
-        {t.impostor.hint(category)}
+        {t.impostor.hint(hint)}
       </Stamp>
       <p className="plate--ink impostor__reveal-note">{t.impostor.impostorNote}</p>
       <Sfx text="ゴクッ" size={30} tone="red-on-ink" vertical style={{ top: 10, right: 10 }} />

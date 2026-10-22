@@ -65,7 +65,8 @@ export const es = {
   },
   impostor: {
     title: 'Impostor',
-    roundLine: (round: number, category: string) => `Ronda ${round} · ${category}`,
+    // Sin la categoría: la cabecera la ve también el impostor.
+    roundLine: (round: number) => `Ronda ${round}`,
     playerOf: (k: number, n: number) => `Jugador ${k} de ${n}`,
     passTo: 'Pasa el móvil a…',
     tap: '¡Toca!',
@@ -76,7 +77,7 @@ export const es = {
     wordNote: 'Uno de vosotros no la sabe. Que no te pille.',
     youAre: 'Eres el',
     impostorWord: 'Impostor',
-    hint: (category: string) => `Pista: ${category}`,
+    hint: (hint: string) => `Pista: ${hint}`,
     impostorNote: 'No conoces la palabra. Escucha, disimula y que no te pillen.',
     hideAndPass: (name: string) => `Ocultar y pasar a ${name}`,
     hideAndPassShort: (name: string) => `Pasar a ${name}`,

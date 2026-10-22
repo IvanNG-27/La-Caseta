@@ -65,7 +65,7 @@ export const and: Dict = {
   },
   impostor: {
     title: 'Impostó',
-    roundLine: (round, category) => `Ronda ${round} · ${category}`,
+    roundLine: (round) => `Ronda ${round}`,
     playerOf: (k, n) => `Jugadó ${k} de ${n}`,
     passTo: 'Pasa er móvil a…',
     tap: '¡Dale!',
@@ -76,7 +76,7 @@ export const and: Dict = {
     wordNote: 'Uno de vosotro no la sabe. Que no te pille, quillo.',
     youAre: 'Ere er',
     impostorWord: 'Impostó',
-    hint: (category) => `Pista: ${category}`,
+    hint: (hint) => `Pista: ${hint}`,
     impostorNote: 'No sabe la palabra, miarma. Escucha, disimula y que no te pillen.',
     hideAndPass: (name) => `Tapa y pásale a ${name}`,
     hideAndPassShort: (name) => `Pásale a ${name}`,

@@ -12,8 +12,10 @@ interface ImpostorState {
   players: Player[];
   /** Categoría elegida en Ajustes (puede ser "Todas"). */
   category: CategoryChoice;
-  /** Categoría real de la palabra de esta ronda: la que se muestra y la pista del impostor. */
+  /** Categoría real de la palabra: solo la ven quienes conocen la palabra (el impostor no). */
   wordCategory: Category;
+  /** Pista sutil que recibe el impostor en lugar de la categoría. */
+  wordHint: string;
   impostorCount: number;
   round: number;
   word: string;
@@ -41,6 +43,7 @@ const initial = {
   players: [] as Player[],
   category: 'Comida' as CategoryChoice,
   wordCategory: 'Comida' as Category,
+  wordHint: '',
   impostorCount: 1,
   round: 0,
   word: '',

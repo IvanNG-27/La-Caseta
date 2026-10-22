@@ -13,17 +13,22 @@ export const ALL_CATEGORIES = 'Todas';
 export type CategoryChoice = Category | typeof ALL_CATEGORIES;
 export const CATEGORY_CHOICES: CategoryChoice[] = [...CATEGORIES, ALL_CATEGORIES];
 
-export const impostorWords = (category: Category): readonly string[] => content.impostor[category];
+/** En content.json cada categoría es { "palabra": "pista para el impostor" }. */
+const impostorEntries = (category: Category): [string, string][] =>
+  Object.entries(content.impostor[category] as Record<string, string>);
 
-/** Palabra con su categoría real (con "Todas", la pista del impostor es la categoría de la palabra). */
+export const impostorWords = (category: Category): string[] => impostorEntries(category).map(([word]) => word);
+
+/** Palabra con su categoría real y la pista sutil que recibe el impostor (no la categoría). */
 export interface WordEntry {
   word: string;
   category: Category;
+  hint: string;
 }
 
 export const impostorPool = (choice: CategoryChoice): WordEntry[] =>
   (choice === ALL_CATEGORIES ? CATEGORIES : [choice]).flatMap((category) =>
-    impostorWords(category).map((word) => ({ word, category })),
+    impostorEntries(category).map(([word, hint]) => ({ word, category, hint })),
   );
 
 export const truthOrDareDeck = (level: TruthOrDareLevel, type: CardType): readonly string[] =>

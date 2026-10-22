@@ -10,8 +10,10 @@ export const clampImpostors = (requested: number, playerCount: number): number =
 
 export interface RoundSetup<C extends string = string> {
   word: string;
-  /** Categoría real de la palabra: es la pista del impostor (con "Todas" varía en cada ronda). */
+  /** Categoría real de la palabra: solo la ven quienes conocen la palabra. */
   wordCategory: C;
+  /** Pista sutil para el impostor (no revela la categoría). */
+  wordHint: string;
   impostorIds: string[];
   starterId: string;
   /** Palabras ya usadas en la sesión, incluida la de esta ronda. */
@@ -22,8 +24,8 @@ export interface RoundSetup<C extends string = string> {
 export function prepareRound<C extends string>(params: {
   players: readonly Player[];
   impostorCount: number;
-  /** Palabras posibles con su categoría (una categoría, o todas). */
-  pool: readonly { word: string; category: C }[];
+  /** Palabras posibles con su categoría y su pista (una categoría, o todas). */
+  pool: readonly { word: string; category: C; hint: string }[];
   usedWords: readonly string[];
   rng?: Rng;
 }): RoundSetup<C> {
@@ -35,13 +37,13 @@ export function prepareRound<C extends string>(params: {
     available = [...pool];
     usedWords = usedWords.filter((w) => !pool.some((e) => e.word === w));
   }
-  const { word, category } = pickOne(available, rng);
+  const { word, category, hint } = pickOne(available, rng);
   const count = clampImpostors(params.impostorCount, players.length);
   const impostorIds = shuffle(players, rng)
     .slice(0, count)
     .map((p) => p.id);
   const starterId = pickOne(players, rng).id;
-  return { word, wordCategory: category, impostorIds, starterId, usedWords: [...usedWords, word] };
+  return { word, wordCategory: category, wordHint: hint, impostorIds, starterId, usedWords: [...usedWords, word] };
 }
 
 export interface RoundResult {

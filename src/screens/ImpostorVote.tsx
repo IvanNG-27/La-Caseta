@@ -16,7 +16,7 @@ import './ImpostorVote.css';
 export function ImpostorVote() {
   const navigate = useNavigate();
   const t = useT();
-  const { active, phase, players, round, wordCategory, accuse, exit } = useImpostor();
+  const { active, phase, players, round, accuse, exit } = useImpostor();
   const { requestExit, dialog } = useExitConfirm(exit);
   const [accusedId, setAccusedId] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ export function ImpostorVote() {
     <main className="screen vote">
       <Header
         title={t.vote.title}
-        subtitle={t.impostor.roundLine(round, t.categories[wordCategory] ?? wordCategory)}
+        subtitle={t.impostor.roundLine(round)}
         action={{ icon: X, label: t.common.exitGame, onClick: requestExit }}
       />
 
