@@ -1,10 +1,10 @@
 // 7.4 Yo nunca — lógica pura.
 import { createDeck, drawCard, type Deck, type Rng } from '../shared/random';
-import { neverHaveIPhrases } from '../../data';
+import { neverHaveIPhrases, type NeverHaveIPhrase } from '../../data';
 
 export interface NeverHaveIState {
   deck: Deck;
-  phrase: string;
+  phrase: NeverHaveIPhrase;
   /** "FRASE N": frases jugadas (1-based). */
   number: number;
   selected: string[];
@@ -27,7 +27,7 @@ export const toggleSelected = (state: NeverHaveIState, playerId: string): NeverH
 export function nextPhrase(state: NeverHaveIState, rng: Rng = Math.random): NeverHaveIState {
   const scores = { ...state.scores };
   for (const id of state.selected) scores[id] = (scores[id] ?? 0) + 1;
-  // Sin repetir dentro de la sesión; si se agotan, se baraja de nuevo (hasta tener más contenido).
+  // Sin repetir dentro de la sesión; si se agotan, se baraja de nuevo.
   const { index, deck } = drawCard(state.deck, rng);
   return { deck, phrase: neverHaveIPhrases[index], number: state.number + 1, selected: [], scores };
 }

@@ -4,7 +4,7 @@ import { createDeck, drawCard } from './shared/random';
 import { validateNewPlayer, type Player } from './shared/players';
 import { draw, initTruthOrDare, nextTurn } from './verdadReto/logic';
 import { initNeverHaveI, nextPhrase, toggleSelected } from './yoNunca/logic';
-import { ALL_CATEGORIES, CATEGORIES, impostorPool, impostorWords } from '../data';
+import { ALL_CATEGORIES, CATEGORIES, impostorPool, impostorWords, neverHaveIPhrases } from '../data';
 
 const players: Player[] = ['Lucía', 'Marcos', 'Ana', 'Dani'].map((name, i) => ({ id: `p${i}`, name }));
 
@@ -31,6 +31,22 @@ describe('contenido', () => {
       expect(low(hint), word).not.toBe(low(category));
       expect(allWords.has(low(hint)), `${word} → ${hint}`).toBe(false);
     }
+  });
+});
+
+describe('contenido de Yo nunca', () => {
+  it('frases sin el "Yo nunca" inicial (lo pone la interfaz), en minúscula, con punto final y sin repetir', () => {
+    const texts = neverHaveIPhrases.map((p) => p.text);
+    for (const text of texts) {
+      expect(text, text).not.toMatch(/^yo nunca/i);
+      expect(text[0], text).toBe(text[0].toLocaleLowerCase('es-ES'));
+      expect(text.endsWith('.'), text).toBe(true);
+    }
+    expect(new Set(texts).size).toBe(texts.length);
+  });
+
+  it('hay frases de los dos tipos: hot y cabrón', () => {
+    expect(new Set(neverHaveIPhrases.map((p) => p.type))).toEqual(new Set(['hot', 'cabron']));
   });
 });
 

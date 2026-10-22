@@ -34,4 +34,14 @@ export const impostorPool = (choice: CategoryChoice): WordEntry[] =>
 export const truthOrDareDeck = (level: TruthOrDareLevel, type: CardType): readonly string[] =>
   type === 'verdad' ? content.verdadReto[level].verdades : content.verdadReto[level].retos;
 
-export const neverHaveIPhrases: readonly string[] = content.yoNunca;
+/** Yo nunca: dos mazos que se juegan mezclados. Cada frase lleva su tipo para la etiqueta. */
+export type NeverHaveIType = keyof typeof content.yoNunca;
+
+export interface NeverHaveIPhrase {
+  text: string;
+  type: NeverHaveIType;
+}
+
+export const neverHaveIPhrases: readonly NeverHaveIPhrase[] = (
+  Object.entries(content.yoNunca) as [NeverHaveIType, string[]][]
+).flatMap(([type, texts]) => texts.map((text) => ({ text, type })));

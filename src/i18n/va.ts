@@ -41,7 +41,7 @@ export const va: Dict = {
     todTag: 'Joc 2 · 2+',
     todTitle: ['Veritat', 'o repte'],
     todDesc: 'Confessa una veritat o fes un repte. Sense excuses.',
-    neverTag: 'Joc 3 · 3+',
+    neverTag: 'Joc 3 · 3+ · +18',
     neverTitle: ['Jo', 'mai'],
     neverDesc: 'Llig la frase. Qui ho haja fet, suma un punt.',
   },
@@ -132,6 +132,7 @@ export const va: Dict = {
   never: {
     title: 'Jo mai',
     phrase: (n) => `Frase ${n}`,
+    types: { hot: 'Hot', cabron: 'Cabró' },
     lead: 'Jo mai…',
     who: 'Qui ho ha fet?',
     tapToMark: 'Toca per a marcar',

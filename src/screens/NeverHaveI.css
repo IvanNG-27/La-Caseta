@@ -2,10 +2,29 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px 16px 30px;
+  /* Arriba: etiqueta (≈26) + caja "YO NUNCA…" que sobresale 16 + aire. Abajo: cola (13) + aire. */
+  padding: 48px 16px 30px;
+}
+/* Etiqueta del tipo de frase, pegada a la esquina como la de Verdad o reto */
+.never__type {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  padding: 4px 10px;
+  font-size: 16px;
+}
+.never__type--hot {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.never__type--cabron {
+  background: var(--ink);
+  color: var(--paper);
 }
 .never__bubble {
-  margin-right: 24px;
+  /* Sitio para la onomatopeya vertical de la esquina (≈26 px + 10 de margen) sin que toque el borde */
+  margin-right: 38px;
   padding: 40px 22px 30px;
 }
 .never__caption {

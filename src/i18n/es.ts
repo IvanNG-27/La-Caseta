@@ -40,7 +40,7 @@ export const es = {
     todTag: 'Juego 2 · 2+',
     todTitle: ['Verdad', 'o reto'],
     todDesc: 'Confiesa una verdad o cumple un reto. Sin escaqueos.',
-    neverTag: 'Juego 3 · 3+',
+    neverTag: 'Juego 3 · 3+ · +18',
     neverTitle: ['Yo', 'nunca'],
     neverDesc: 'Lee la frase. Quien lo haya hecho, suma un punto.',
   },
@@ -132,6 +132,7 @@ export const es = {
   never: {
     title: 'Yo nunca',
     phrase: (n: number) => `Frase ${n}`,
+    types: { hot: 'Hot', cabron: 'Cabrón' },
     lead: 'Yo nunca…',
     who: '¿Quién lo ha hecho?',
     tapToMark: 'Toca para marcar',

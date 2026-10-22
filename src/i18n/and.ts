@@ -40,7 +40,7 @@ export const and: Dict = {
     todTag: 'Juego 2 · 2+',
     todTitle: ['Verdá', 'o reto'],
     todDesc: 'Confiesa una verdá o cumple un reto. Sin escaqueo, ¿eh?',
-    neverTag: 'Juego 3 · 3+',
+    neverTag: 'Juego 3 · 3+ · +18',
     neverTitle: ['Yo', 'nunca'],
     neverDesc: 'Lee la frase. Er que lo haya hecho, suma un punto.',
   },
@@ -130,6 +130,7 @@ export const and: Dict = {
   never: {
     title: 'Yo nunca',
     phrase: (n) => `Frase ${n}`,
+    types: { hot: 'Hot', cabron: 'Cabrón' },
     lead: 'Yo nunca…',
     who: '¿Quién lo ha hecho?',
     tapToMark: 'Toca pa marcá',
