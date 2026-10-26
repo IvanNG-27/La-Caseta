@@ -45,8 +45,8 @@ describe('contenido de Yo nunca', () => {
     expect(new Set(texts).size).toBe(texts.length);
   });
 
-  it('hay frases de los dos tipos: hot y cabrón', () => {
-    expect(new Set(neverHaveIPhrases.map((p) => p.type))).toEqual(new Set(['hot', 'cabron']));
+  it('hay frases de los tres tipos: hot, cabrón y humor negro', () => {
+    expect(new Set(neverHaveIPhrases.map((p) => p.type))).toEqual(new Set(['hot', 'cabron', 'negro']));
   });
 });
 

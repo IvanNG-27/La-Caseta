@@ -134,10 +134,16 @@ export const es = {
   never: {
     title: 'Yo nunca',
     phrase: (n: number) => `Frase ${n}`,
-    types: { hot: 'Hot', cabron: 'Cabrón' },
+    types: { hot: 'Hot', cabron: 'Cabrón', negro: 'Humor negro' },
     lead: 'Yo nunca…',
     who: '¿Quién lo ha hecho?',
     tapToMark: 'Toca para marcar',
+    gate: {
+      stamp: 'Solo adultos',
+      text: 'Este juego tiene frases sexuales muy explícitas. Solo para mayores de 18 años.',
+      confirm: 'Tengo 18 o más',
+      cancel: 'Volver',
+    },
     next: 'Siguiente frase',
   },
   exit: {

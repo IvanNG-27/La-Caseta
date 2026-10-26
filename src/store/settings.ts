@@ -13,9 +13,12 @@ interface SettingsState {
   debateMinutes: DebateMinutes;
   language: Language;
   theme: Theme;
+  /** Aviso +18 de Yo nunca ya aceptado en este dispositivo. */
+  adultConfirmed: boolean;
   setDebateMinutes: (minutes: DebateMinutes) => void;
   setLanguage: (language: Language) => void;
   setTheme: (theme: Theme) => void;
+  confirmAdult: () => void;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -24,9 +27,11 @@ export const useSettings = create<SettingsState>()(
       debateMinutes: 5,
       language: 'es',
       theme: 'light',
+      adultConfirmed: false,
       setDebateMinutes: (debateMinutes) => set({ debateMinutes }),
       setLanguage: (language) => set({ language }),
       setTheme: (theme) => set({ theme }),
+      confirmAdult: () => set({ adultConfirmed: true }),
     }),
     { name: 'app-juegos/ajustes', version: 1 },
   ),

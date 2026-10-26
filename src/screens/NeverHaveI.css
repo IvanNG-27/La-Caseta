@@ -64,3 +64,35 @@
   font-weight: 700;
   font-size: 13px;
 }
+
+/* Aviso +18: viñeta invertida (4.10), reservada a los momentos dramáticos */
+.gate__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.gate__big {
+  padding: 0 12px;
+  font-size: 120px;
+  line-height: 1;
+}
+.gate__text {
+  max-width: 280px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+/* Humor negro: etiqueta en papel con borde de tinta, para distinguirla de Hot (rojo) y Cabrón (tinta) */
+.never__type--negro {
+  background: var(--paper);
+  color: var(--ink);
+  border-right: var(--border-panel) solid var(--ink);
+  border-bottom: var(--border-panel) solid var(--ink);
+}

@@ -1,13 +1,14 @@
 // 6.6 Yo nunca · partida
 import { useLayoutEffect, useRef, useState, type RefObject } from 'react';
-import { Navigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import { X } from 'lucide-react';
 import { Header, HeaderIndicator } from '../components/Header';
 import { Panel } from '../components/Panel';
-import { Bubble, Sfx } from '../components/fx';
+import { Bubble, Sfx, Stamp } from '../components/fx';
 import { Button } from '../components/Buttons';
 import { PlayerToggle } from '../components/PlayerItems';
 import { usePlayers } from '../store/players';
+import { useSettings } from '../store/settings';
 import { useT } from '../i18n';
 import { useExitConfirm } from '../hooks/useExitConfirm';
 import { MIN_PLAYERS } from '../games/shared/players';
@@ -44,7 +45,45 @@ function usePhraseFit(panelRef: RefObject<HTMLElement | null>, textRef: RefObjec
   }, [panelRef, textRef, phrase]);
 }
 
+/** Yo nunca tiene contenido sexual explícito: antes de jugar, aviso +18 (se recuerda en el dispositivo). */
 export function NeverHaveI() {
+  const confirmed = useSettings((s) => s.adultConfirmed);
+  return confirmed ? <NeverHaveIGame /> : <AdultGate />;
+}
+
+function AdultGate() {
+  const t = useT();
+  const navigate = useNavigate();
+  const confirmAdult = useSettings((s) => s.confirmAdult);
+  const back = () => navigate('/', { replace: true });
+
+  return (
+    <main className="screen never-gate">
+      <Header title={t.never.title} action={{ icon: X, label: t.common.back, onClick: back }} />
+
+      <Panel grow background="ink" focusLines className="gate__panel">
+        <Stamp onInk rotate={-6} size={15}>
+          {t.never.gate.stamp}
+        </Stamp>
+        <h1 className="display plate--ink gate__big" aria-label={t.never.gate.stamp}>
+          +18
+        </h1>
+        <p className="plate--ink gate__text">{t.never.gate.text}</p>
+        <Sfx text="ゴクッ" size={30} tone="red-on-ink" vertical style={{ top: 10, right: 10 }} />
+      </Panel>
+
+      {/* Apilados: "TENGO 18 O MÁS" no cabe en 2/3 de fila sin cortarse */}
+      <Button arrow onClick={confirmAdult}>
+        {t.never.gate.confirm}
+      </Button>
+      <Button variant="secondary" onClick={back}>
+        {t.never.gate.cancel}
+      </Button>
+    </main>
+  );
+}
+
+function NeverHaveIGame() {
   const t = useT();
   const players = usePlayers((s) => s.players);
   const [state, setState] = useState(() => initNeverHaveI());

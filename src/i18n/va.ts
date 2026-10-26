@@ -134,10 +134,16 @@ export const va: Dict = {
   never: {
     title: 'Jo mai',
     phrase: (n) => `Frase ${n}`,
-    types: { hot: 'Hot', cabron: 'Cabró' },
+    types: { hot: 'Hot', cabron: 'Cabró', negro: 'Humor negre' },
     lead: 'Jo mai…',
     who: 'Qui ho ha fet?',
     tapToMark: 'Toca per a marcar',
+    gate: {
+      stamp: 'Només adults',
+      text: 'Aquest joc té frases sexuals molt explícites. Només per a majors de 18 anys.',
+      confirm: 'Tinc 18 o més',
+      cancel: 'Tornar',
+    },
     next: 'Següent frase',
   },
   exit: {

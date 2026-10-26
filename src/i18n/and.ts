@@ -132,10 +132,16 @@ export const and: Dict = {
   never: {
     title: 'Yo nunca',
     phrase: (n) => `Frase ${n}`,
-    types: { hot: 'Hot', cabron: 'Cabrón' },
+    types: { hot: 'Hot', cabron: 'Cabrón', negro: 'Humor negro' },
     lead: 'Yo nunca…',
     who: '¿Quién lo ha hecho?',
     tapToMark: 'Toca pa marcá',
+    gate: {
+      stamp: 'Solo adulto',
+      text: 'Este juego tiene frases sexuales mu explícitas. Solo pa mayores de 18, ¿eh?',
+      confirm: 'Tengo 18 o más',
+      cancel: 'Pa trá',
+    },
     next: 'Otra frase',
   },
   exit: {
