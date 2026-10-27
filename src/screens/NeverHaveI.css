@@ -96,3 +96,11 @@
   border-right: var(--border-panel) solid var(--ink);
   border-bottom: var(--border-panel) solid var(--ink);
 }
+
+/* Explícita: rojo como Hot pero con borde de tinta, para distinguirla a simple vista */
+.never__type--explicita {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-right: var(--border-panel) solid var(--ink);
+  border-bottom: var(--border-panel) solid var(--ink);
+}

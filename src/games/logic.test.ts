@@ -45,8 +45,19 @@ describe('contenido de Yo nunca', () => {
     expect(new Set(texts).size).toBe(texts.length);
   });
 
-  it('hay frases de los tres tipos: hot, cabrón y humor negro', () => {
-    expect(new Set(neverHaveIPhrases.map((p) => p.type))).toEqual(new Set(['hot', 'cabron', 'negro']));
+  it('hay frases de los cuatro tipos: hot, cabrón, humor negro y explícita', () => {
+    expect(new Set(neverHaveIPhrases.map((p) => p.type))).toEqual(new Set(['hot', 'cabron', 'negro', 'explicita']));
+  });
+
+  it('sin explícitas, el mazo entero no tiene ni una; con explícitas, sí entran', () => {
+    const sin = initNeverHaveI(false);
+    expect(sin.pool.some((p) => p.type === 'explicita')).toBe(false);
+    let s = sin;
+    for (let i = 0; i < sin.pool.length * 2; i++) {
+      expect(s.phrase.type).not.toBe('explicita');
+      s = nextPhrase(s);
+    }
+    expect(initNeverHaveI(true).pool.length).toBe(neverHaveIPhrases.length);
   });
 });
 
