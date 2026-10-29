@@ -32,10 +32,11 @@ src/
   i18n/          textos de la interfaz: es.ts (español), and.ts (andaluz) y va.ts (valencià)
   data/          content.json — palabras, cartas y frases (7.5), separado del código
   hooks/         useCountdown, useExitConfirm
+  sound/         clickSounds.ts — sonido al azar al pulsar botones (audios en assets/sonidos/)
 ```
 
 
 ## Pendiente de decidir (sección 10)
 
-- Sonido y vibración (ajustes por añadir).
+- Vibración (no definida).
 - Nativo: ocultar contenido en multitarea y mantener la pantalla encendida (plugins de Capacitor).

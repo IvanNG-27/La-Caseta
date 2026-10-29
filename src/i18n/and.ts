@@ -160,5 +160,8 @@ export const and: Dict = {
     languages: { es: 'Español', and: 'Andalú', va: 'Valencià' },
     theme: 'Tema',
     themes: { light: 'Clarito', dark: 'Oscurito' },
+    sound: 'Sonío',
+    soundHint: 'Ar tocá los botone',
+    soundOptions: { on: 'Encendío', off: 'Apagao' },
   },
 };

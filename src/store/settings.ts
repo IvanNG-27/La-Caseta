@@ -13,9 +13,12 @@ interface SettingsState {
   debateMinutes: DebateMinutes;
   language: Language;
   theme: Theme;
+  /** Efectos de sonido al pulsar botones. */
+  sound: boolean;
   setDebateMinutes: (minutes: DebateMinutes) => void;
   setLanguage: (language: Language) => void;
   setTheme: (theme: Theme) => void;
+  setSound: (sound: boolean) => void;
 }
 
 export const useSettings = create<SettingsState>()(
@@ -24,9 +27,11 @@ export const useSettings = create<SettingsState>()(
       debateMinutes: 5,
       language: 'es',
       theme: 'light',
+      sound: true,
       setDebateMinutes: (debateMinutes) => set({ debateMinutes }),
       setLanguage: (language) => set({ language }),
       setTheme: (theme) => set({ theme }),
+      setSound: (sound) => set({ sound }),
     }),
     { name: 'app-juegos/ajustes', version: 1 },
   ),

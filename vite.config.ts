@@ -28,7 +28,7 @@ export default defineConfig({
       },
       workbox: {
         // Las fuentes (con sus subconjuntos japoneses) también quedan guardadas para jugar sin conexión.
-        globPatterns: ['**/*.{js,css,html,png,gif,woff2}'],
+        globPatterns: ['**/*.{js,css,html,png,gif,woff2,mp3}'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
     }),

@@ -163,6 +163,9 @@ export const es = {
     languages: { es: 'Español', and: 'Andalú', va: 'Valencià' },
     theme: 'Tema',
     themes: { light: 'Claro', dark: 'Oscuro' },
+    sound: 'Sonido',
+    soundHint: 'Al pulsar botones',
+    soundOptions: { on: 'Activado', off: 'Desactivado' },
   },
 };
 

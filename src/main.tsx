@@ -15,6 +15,7 @@ import './styles/components.css';
 
 import { App } from './App';
 import { applyLanguage, applyTheme, useSettings } from './store/settings';
+import { installClickSounds } from './sound/clickSounds';
 
 // Tema e idioma guardados: se aplican antes de pintar para que no parpadee, y después en cada cambio.
 const applySettings = ({ theme, language }: ReturnType<typeof useSettings.getState>) => {
@@ -23,6 +24,7 @@ const applySettings = ({ theme, language }: ReturnType<typeof useSettings.getSta
 };
 applySettings(useSettings.getState());
 useSettings.subscribe(applySettings);
+installClickSounds();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

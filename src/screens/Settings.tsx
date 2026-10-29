@@ -17,10 +17,10 @@ const THEMES: Theme[] = ['light', 'dark'];
 export function Settings() {
   const navigate = useNavigate();
   const t = useT();
-  const { debateMinutes, language, theme, setDebateMinutes, setLanguage, setTheme } = useSettings();
+  const { debateMinutes, language, theme, sound, setDebateMinutes, setLanguage, setTheme, setSound } = useSettings();
 
   return (
-    <main className="screen settings">
+    <main className="screen screen--scroll settings">
       <Header
         height={60}
         titleSize={20}
@@ -63,6 +63,19 @@ export function Settings() {
           {THEMES.map((th) => (
             <Chip key={th} selected={th === theme} onSelect={() => setTheme(th)}>
               {t.settings.themes[th]}
+            </Chip>
+          ))}
+        </ChipGroup>
+      </Section>
+
+      <Section title={t.settings.sound}>
+        <div className="settings__row">
+          <span className="settings__hint">{t.settings.soundHint}</span>
+        </div>
+        <ChipGroup label={t.settings.sound}>
+          {([true, false] as const).map((on) => (
+            <Chip key={String(on)} selected={on === sound} onSelect={() => setSound(on)}>
+              {on ? t.settings.soundOptions.on : t.settings.soundOptions.off}
             </Chip>
           ))}
         </ChipGroup>
