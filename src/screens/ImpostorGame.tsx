@@ -22,7 +22,8 @@ export function ImpostorGame() {
   const game = useImpostor();
   const { requestExit, dialog } = useExitConfirm(game.exit);
 
-  if (!game.active) return <Navigate to="/jugadores?juego=impostor" replace />;
+  // Sin partida (al salir con la X, o al recargar la página en mitad de una): a Inicio (01, 7.2).
+  if (!game.active) return <Navigate to="/" replace />;
   if (game.phase === 'voting') return <Navigate to="/impostor/votacion" replace />;
   if (game.phase === 'results') return <Navigate to="/impostor/resultados" replace />;
 

@@ -7,7 +7,9 @@ export default defineConfig({
     react(),
     // App web instalable y sin conexión (PROPUESTA 01: funciona sin conexión y sin cuentas).
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt': la versión nueva se aplica desde src/pwa.ts, en Inicio y nunca en mitad de una partida.
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['favicon-64.png', 'apple-touch-icon.png'],
       manifest: {
         name: 'La Caseta Game',

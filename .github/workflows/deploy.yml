@@ -18,15 +18,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+        env:
+          # Se graba en index.html (<meta name="app-version">) para comprobar después qué versión está publicada.
+          VITE_APP_VERSION: ${{ github.sha }}
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -36,6 +39,36 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+  # Comprueba que lo que ve la gente es de verdad esta versión de la app compilada.
+  # Si en Settings → Pages alguien pone "Deploy from a branch", GitHub publica el código fuente sin compilar
+  # encima de la app y la web deja de funcionar; este paso lo detecta y falla con el motivo.
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comprobar la web publicada
+        env:
+          URL: ${{ needs.deploy.outputs.page_url }}
+        run: |
+          sleep 45  # deja terminar cualquier otro despliegue que pudiera pisar el nuestro
+          for i in $(seq 1 40); do
+            html="$(curl -fsSL "${URL}?v=${GITHUB_SHA}-${i}" || true)"
+            if echo "$html" | grep -q 'src="/src/main.tsx"'; then
+              echo "::error title=La web publica el código fuente::GitHub ha publicado el repositorio sin compilar. Ve a Settings → Pages → Build and deployment y pon 'Source: GitHub Actions' (no 'Deploy from a branch'). Después vuelve a lanzar este workflow."
+              exit 1
+            fi
+            sw="$(curl -s -o /dev/null -w '%{http_code}' "${URL}sw.js?v=${GITHUB_SHA}-${i}")"
+            if echo "$html" | grep -q "name=\"app-version\" content=\"${GITHUB_SHA}\"" && [ "$sw" = "200" ]; then
+              echo "OK: la web publicada es la versión ${GITHUB_SHA}."
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error title=La web no se ha actualizado::Tras 10 minutos, ${URL} no sirve la versión ${GITHUB_SHA} (o falta sw.js). Revisa Settings → Pages."
+          exit 1

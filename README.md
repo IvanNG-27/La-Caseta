@@ -8,6 +8,10 @@ Impostor, Verdad o reto y Yo nunca, pasando un único móvil. Implementa la *Esp
 
 **Publicación:** cada push a `main` pasa los tests y publica la web en GitHub Pages (`.github/workflows/deploy.yml`).
 
+> **Importante:** en *Settings → Pages → Build and deployment*, **Source** tiene que ser **GitHub Actions**. Con "Deploy from a branch" GitHub publica el código fuente sin compilar y la web deja de funcionar. Tras cada despliegue, el paso *verify* comprueba que la web publicada es la versión recién compilada (`<meta name="app-version">` = commit) y, si no, falla explicando qué cambiar.
+>
+> Los móviles buscan versión nueva al abrir la app, al volver a ella y cada 15 minutos, y la aplican solos en Inicio (nunca en mitad de una partida).
+
 ## Comandos
 
 ```bash

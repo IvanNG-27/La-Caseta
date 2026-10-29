@@ -13,9 +13,10 @@ import './styles/base.css';
 import './styles/effects.css';
 import './styles/components.css';
 
-import { App } from './App';
+import { App, router } from './App';
 import { applyLanguage, applyTheme, useSettings } from './store/settings';
 import { installClickSounds } from './sound/clickSounds';
+import { setupAppUpdates } from './pwa';
 
 // Tema e idioma guardados: se aplican antes de pintar para que no parpadee, y después en cada cambio.
 const applySettings = ({ theme, language }: ReturnType<typeof useSettings.getState>) => {
@@ -25,6 +26,10 @@ const applySettings = ({ theme, language }: ReturnType<typeof useSettings.getSta
 applySettings(useSettings.getState());
 useSettings.subscribe(applySettings);
 installClickSounds();
+setupAppUpdates(
+  (listener) => router.subscribe((state) => listener(state.location.pathname)),
+  () => router.state.location.pathname,
+);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
